@@ -25,8 +25,10 @@ function wearables:SelectPart(info)
                 PlayerResource:GetSelectedHeroEntity(info.PlayerID):AddNewModifier(PlayerResource:GetSelectedHeroEntity(info.PlayerID), PlayerResource:GetSelectedHeroEntity(info.PlayerID), "part_mod", {part = info.part})
 			end
 			local npc = PlayerResource:GetSelectedHeroEntity(info.PlayerID)
-			if parts["11"] == "normal" and not EVENT_START then
-				SetModelVip(npc)
+			if parts["29"] == "normal" and not EVENT_START then
+				SetModelVip(npc, "11")
+			elseif parts["11"] == "normal" and not EVENT_START then
+				SetModelVip(npc, "11")
 			end		
 			if info.part == "21" then
 				npc:SetCustomHealthLabel("#top1autumn",  250, 179, 0)
@@ -108,9 +110,11 @@ function wearables:SetPart()
 				local parts = CustomNetTables:GetTableValue("Particles_Tabel",tostring(i))
 				local npc = PlayerResource:GetSelectedHeroEntity(i)
 				if parts ~= nil then
-				if parts["11"] == "normal" and not EVENT_START then
-					SetModelVip(npc)
-				end
+					if parts["29"] == "normal" and not EVENT_START then
+						SetModelVip(npc, "11")
+					elseif parts["11"] == "normal" and not EVENT_START then
+						SetModelVip(npc, "11")
+					end
 				end
 			end
 		end
@@ -136,7 +140,7 @@ function wearables:SetDefaultPart(event)
 	end
 end		
 
-function SetModelVip(npc)
+function SetModelVip(npc, num)
 	if npc:IsAngel() then
 		--	wearables:AttachWearable(npc, "models/items/crystal_maiden/dota_plus_crystal_maiden_shoulder/dota_plus_crystal_maiden_shoulder.vmdl")
 		--	wearables:AttachWearable(npc, "models/items/crystal_maiden/dota_plus_crystal_maiden_head/dota_plus_crystal_maiden_head.vmdl")
@@ -144,16 +148,22 @@ function SetModelVip(npc)
 		--	wearables:AttachWearable(npc, "models/items/crystal_maiden/dota_plus_crystal_maiden_weapon/dota_plus_crystal_maiden_weapon.vmdl")
 		--	wearables:AttachWearable(npc, "models/items/crystal_maiden/dota_plus_crystal_maiden_arms/dota_plus_crystal_maiden_arms.vmdl")
 		elseif npc:IsWolf() then
-		wearables:RemoveWearables(npc)
-		wearables:AttachWearable(npc, "models/items/lycan/ultimate/blood_moon_hunter_shapeshift_form/blood_moon_hunter_shapeshift_form.vmdl")
+			npc:SetOriginalModel("models/items/lycan/ultimate/blood_moon_hunter_shapeshift_form/blood_moon_hunter_shapeshift_form.vmdl")
+			npc:SetModel("models/items/lycan/ultimate/blood_moon_hunter_shapeshift_form/blood_moon_hunter_shapeshift_form.vmdl")
+			npc:SetModelScale(1)
 		elseif npc:IsTroll() then
 		--	wearables:AttachWearable(npc, "models/items/troll_warlord/lord_of_war_weapon/lord_of_war_weapon.vmdl")
 		--	wearables:AttachWearable(npc, "models/items/troll_warlord/lord_of_war_armor/lord_of_war_armor.vmdl")
 		--	wearables:AttachWearable(npc, "models/items/troll_warlord/lord_of_war_head/lord_of_war_head.vmdl")
 		--	wearables:AttachWearable(npc, "models/items/troll_warlord/lord_of_war_shoulder/lord_of_war_shoulder.vmdl")
-		elseif npc:IsElf() then
-		wearables:RemoveWearables(npc)
-		wearables:AttachWearable(npc, "models/creeps/lane_creeps/creep_radiant_melee/radiant_melee_mega.vmdl")
+		elseif npc:IsElf() and num == "11" then
+			npc:SetOriginalModel("models/creeps/lane_creeps/creep_radiant_melee/radiant_melee_mega.vmdl")
+			npc:SetModel("models/creeps/lane_creeps/creep_radiant_melee/radiant_melee_mega.vmdl")
+			npc:SetModelScale(1)
+		elseif npc:IsElf() and num == "29" then
+			npc:SetOriginalModel("models/creeps/lane_creeps/nemestice_crystal_creeps/creep_radiant_melee/crystal_radiant_melee.vmdl")
+			npc:SetModel("models/creeps/lane_creeps/nemestice_crystal_creeps/creep_radiant_melee/crystal_radiant_melee.vmdl")
+			npc:SetModelScale(1.2)
 	end
 	--if npc.bear ~= nil  then
 	--	wearables:RemoveWearables(npc.bear)
