@@ -207,7 +207,7 @@ function Pets.CreatePet( keys, num )
 		model = "models/courier/beetlejaws/mesh/beetlejaws.vmdl" -- Beetlejaws 
 		effect = "particles/econ/courier/courier_beetlejaw_gold/courier_beetlejaw_gold_ambient.vpcf"
 	elseif num == "11" then
-		model = "models/items/courier/courier_ti9/courier_ti9_lvl7/courier_ti9_lvl7.vmdl" -- Desert Winner
+		model = "models/items/courier/courier_ti9/courier_ti9_lvl7/courier_ti9_lvl7.vmdl" -- Autumn Winner
 		effect = "particles/econ/courier/courier_roshan_desert_sands/baby_roshan_desert_sands_ambient.vpcf"
 	elseif num == "12" then
 		model = "models/items/courier/duskie/duskie.vmdl" -- Winter Winner
@@ -215,8 +215,13 @@ function Pets.CreatePet( keys, num )
 	elseif num == "13" then
 		model = "models/items/courier/little_sapplingnew_bloom_style/little_sapplingnew_bloom_style.vmdl" -- Spring Winner
 		effect = "particles/econ/courier/courier_greevil_green/courier_greevil_green_ambient_3.vpcf"
+	elseif num == "14" then
+		model = "models/items/courier/chocobo/chocobo.vmdl" -- Summer Winner
+		effect = "particles/econ/courier/courier_roshan_lava/courier_roshan_lava.vpcf"
+	elseif num == "15" then
+		model = "models/items/courier/faceless_rex/faceless_rex.vmdl" -- discord
+		effect = "particles/econ/courier/courier_greevil_purple/courier_greevil_purple_ambient_3.vpcf"
 	end
-	
 	
 	if model ~= "" then
 		local pet = CreateUnitByName( "npc_cosmetic_pet", hero:GetAbsOrigin() + RandomVector( RandomInt( 6000, 8000 ) ), true, hero, hero, hero:GetTeam() )

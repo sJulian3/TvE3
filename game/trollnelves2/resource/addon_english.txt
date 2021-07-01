@@ -1779,6 +1779,7 @@
 		"patron9"                                          										"Level 9 Donation. Available to ninth level donater or higher."
 		"patron10"                                          									"Level 10 Donation. Available to tenth level donater or higher."
 		"patron11"                                          									"Level 11 Donation. Available to tenth level donater or higher."
+		"patron12"																				"Level 12 Donation. Available to tenth level donater or higher."
 		"coldfire"																				"Awarded along with a level 9 effect or in special events."
 		"winter2"																				"Awarded along with a level 9 effect or in special events."
 		"suprise"																				"Awarded along with a level 9 effect or in special events."
@@ -1788,6 +1789,9 @@
 		"summer2"																				"Awarded along with a level 10 effect or in special events."
 		"dirt"																				    "Awarded along with a level 10 effect or in special events."
 		"storm"																				 	"Awarded along with a level 10 effect or in special events."
+		"life"																				 	"Awarded along with a level 12 effect or in special events."
+		
+		"block"																					"The effect is blocked until the event is released."
 		
 		"partnote"                                          									"Effect description"
 		"partname"                                          									"Effect name"
@@ -1808,7 +1812,8 @@
 		"peventdesert"																			"Awarded for participating in a Desert event. Pets are not included in the donation effect."
 		"peventwinter"																			"Awarded for participating in a Winter event. Pets are not included in the donation effect."
 		"peventspring"																			"Awarded for participating in a Spring event. Pets are not included in the donation effect."
-		
+		"peventsummer"																			"Awarded for participating in a Spring event. Pets are not included in the donation effect."
+		"discordnitro"																			"Awarded for boosting the Discord server."
 		
 		
 		"seveasdefault"																			"Save as default"

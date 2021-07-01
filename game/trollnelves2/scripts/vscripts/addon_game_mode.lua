@@ -356,6 +356,10 @@ function Precache( context )
 	
 	PrecacheResource("particle", "particles/econ/items/omniknight/omniknight_fall20_immortal/omniknight_fall20_immortal_degen_aura_debuff.vpcf", context)
 	PrecacheResource("particle", "particles/econ/events/ti10/aghanim_aura_ti10/agh_aura_ti10.vpcf", context)
+	
+	PrecacheResource("particle", "particles/econ/events/summer_2021/summer_2021_emblem_effect.vpcf", context)
+    PrecacheResource("particle", "particles/econ/events/spring_2021/fountain_regen_spring_2021_lvl3.vpcf", context)
+    PrecacheResource("particle", "particles/econ/events/spring_2021/agh_aura_spring_2021_lvl2.vpcf", context) 
 		
 	--Halloween
 --	PrecacheResource("model", "models/heroes/death_prophet/death_prophet.vmdl", context)
