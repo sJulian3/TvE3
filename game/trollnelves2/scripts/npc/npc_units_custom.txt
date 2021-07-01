@@ -7830,7 +7830,7 @@
 		"Ability1" 			"reveal_area" //treant_debuff
 		"Ability2" 			"troll_teleport"
 		"Ability3" 			"attack_gold_wisp"
-		"Ability4" 			""
+		"Ability4" 			"bear_movespeed"
 		"Ability5"    	    ""
 		"Ability6"    	    ""
 		"Ability7"    	    ""
@@ -10073,7 +10073,7 @@
 		"Ability1"					"buy_reveal_area_bear"
 		"Ability2"					"buy_troll_teleport_bear"
 		"Ability3"					"buy_skill_wisp_on_attack"
-		"Ability4"					""
+		"Ability4"					"buy_skill_bear_movespeed"
 		"Ability5"					""
 		"Ability6"					""
 		"Ability7"					""

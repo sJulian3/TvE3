@@ -5398,6 +5398,41 @@
 			}
 		}
 	}
+	
+	"item_bear_movespeed"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"                     "item_datadriven"
+		"AbilityTextureName"            "bear_movespeed"
+		"AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"Model"                         "models/props_winter/present.vmdl"
+		"Effect"                        "particles/generic_gameplay/dropped_item.vpcf"
+		// Stats        
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"              "0"
+		"AbilityCooldown"				"0.1"
+		"AbilityCastPoint"              "0.0"
+		"AbilityManaCost"               "0"
+		"ItemSellable"					"0"
+		"ItemDroppable"					"1"
+		"ItemPurchasable" 				"0"
+		"ItemShareability"				"ITEM_NOT_SHAREABLE"
+		"AbilitySpecial"
+		{
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"gold_cost"				"0"
+			}	
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"lumber_cost"			"128"
+			}
+		}
+	}
+	
 	"item_reveal_area"
 	{
 		// General

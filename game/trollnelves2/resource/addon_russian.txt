@@ -1113,7 +1113,9 @@
 		
 		"DOTA_Tooltip_ability_buy_item_troll_boots"                                         "Buy Troll Boots"
 		"DOTA_Tooltip_ability_buy_item_troll_boots_Description"                             ""
-		
+
+		"DOTA_Tooltip_Ability_bear_movespeed"                                         "Bear Movespeed"
+		"DOTA_Tooltip_Ability_bear_movespeed_Description"                             "+150 к скорости передвижения."
 		
 		"DOTA_Tooltip_ability_buy_item_disable_repair"                                                "Buy No Hammer Time! Level 1!"
 		"DOTA_Tooltip_ability_buy_item_disable_repair_Description"                                    "Не дает рабочим чинить стену! Действует 5 секунд. "

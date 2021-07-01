@@ -1252,6 +1252,12 @@
 		"DOTA_Tooltip_ability_buy_item_troll_boots"                                         "Buy Troll Boots"
 		"DOTA_Tooltip_ability_buy_item_troll_boots_Description"                             ""
 		
+		"DOTA_Tooltip_Ability_buy_skill_bear_movespeed"                                         "Buy Bear Passive Skill Movespeed"
+		"DOTA_Tooltip_Ability_buy_skill_bear_movespeed_Description"                             "+150 to movement speed."
+		
+		"DOTA_Tooltip_Ability_bear_movespeed"                                         "Bear Movespeed"
+		"DOTA_Tooltip_Ability_bear_movespeed_Description"                             "+150 to movement speed."
+		
 		"DOTA_Tooltip_ability_buy_item_troll_boots_2"                                         "Buy Troll Boots LVL 2"
 		"DOTA_Tooltip_ability_buy_item_troll_boots_2_Description"                             ""
 		

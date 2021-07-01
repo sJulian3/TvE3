@@ -5133,6 +5133,28 @@
 		}
 	}
 	
+	"bear_movespeed"{
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityTextureName"			"bear_movespeed"
+		"MaxLevel"						"1"
+		"OnCreated"
+		{
+			"ApplyModifier"
+			{
+				"Target"            "CASTER"
+				"ModifierName"      "bear_movespeed"
+			}
+		}		
+		"Modifiers"{
+			"bear_movespeed"{				
+				"Properties"{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT"	"150"
+				}
+			}
+		}	
+	}
+	
 	"troll_range"{
 		"BaseClass"						"ability_datadriven"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
@@ -6268,6 +6290,26 @@
 		}
 
 	}
+	
+	"buy_skill_bear_movespeed"
+	{
+		"BaseClass"					"ability_datadriven"
+		"AbilityTextureName"		"bear_movespeed"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"MaxLevel"					"1"
+		"ItemName"					"item_bear_movespeed"
+		"BuyItem"					"1"
+				
+		"OnSpellStart"{
+			"RunScript"
+			{
+				"ScriptFile"		"custom_abilities.lua"
+				"Function"			"BuySkill"
+			}
+		}
+
+	}
+	
 	"buy_reveal_area_bear"
 	{
 		"BaseClass"					"ability_datadriven"

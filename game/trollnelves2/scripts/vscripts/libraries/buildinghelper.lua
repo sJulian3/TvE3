@@ -1284,6 +1284,11 @@ function BuildingHelper:UpgradeBuilding(building, newName)
     local bPlayerCanControl = GetUnitKV(newName, "PlayerCanControl") or 0
     
     local buildTime = GetUnitKV(newName, "BuildTime") or 3
+    
+    if GameRules.MapSpeed == 4 then
+        buildTime = buildTime/4
+    end
+    
     local bScale = GetUnitKV(newName, "Scale") or 0
     local fTimeBuildingCompleted = GameRules:GetGameTime() + buildTime
     local fInitialModelScale = 0.2

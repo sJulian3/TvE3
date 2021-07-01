@@ -234,6 +234,11 @@ function UpgradeBuilding( event )
     local hero = PlayerResource:GetSelectedHeroEntity(playerID)
     local upgrades = GetUnitKV(building:GetUnitName(),"Upgrades")
     local buildTime = GetUnitKV(NewBuildingName,"BuildTime")
+    
+    if GameRules.MapSpeed == 4 then
+        buildTime = buildTime/4
+    end
+    
     local gold_cost
     local lumber_cost
     local parts = CustomNetTables:GetTableValue("Particles_Tabel",tostring(building:GetPlayerOwnerID()))
