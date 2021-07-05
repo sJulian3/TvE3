@@ -5147,7 +5147,9 @@
 			}
 		}		
 		"Modifiers"{
-			"bear_movespeed"{				
+			"bear_movespeed"{	
+				"IsHidden"			"1"
+				"Passive"			"1"
 				"Properties"{
 					"MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT"	"150"
 				}
