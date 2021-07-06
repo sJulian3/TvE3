@@ -1796,6 +1796,9 @@
 		"dirt"																				    "Awarded along with a level 10 effect or in special events."
 		"storm"																				 	"Awarded along with a level 10 effect or in special events."
 		"life"																				 	"Awarded along with a level 12 effect or in special events."
+		"toppatron"																				"Awarded for TOP1-3 donators on Patreon."
+		
+		"top1-3patreon"																			"TOP PATREON"
 		
 		"block"																					"The effect is blocked until the event is released."
 		

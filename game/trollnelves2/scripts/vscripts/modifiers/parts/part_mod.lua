@@ -51,8 +51,8 @@ function part_mod:GetEffectName()
     "particles/econ/events/ti10/aghanim_aura_ti10/agh_aura_ti10.vpcf", --TOP2 SUMMER 42
     "particles/econ/events/spring_2021/agh_aura_spring_2021_lvl2.vpcf", --TOP2 SUMMER 43
     
-    "particles/econ/events/summer_2021/summer_2021_emblem_effect.vpcf", --44
-    "particles/econ/events/spring_2021/fountain_regen_spring_2021_lvl3.vpcf", --45
+    "particles/econ/events/summer_2021/summer_2021_emblem_effect.vpcf", --44 донат 12
+    "particles/econ/events/spring_2021/fountain_regen_spring_2021_lvl3.vpcf", --45 топ патреон
 
     
     "particles/econ/courier/courier_dc/dccourier_angel_flame.vpcf", -- ангелы и лед

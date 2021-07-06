@@ -52,6 +52,8 @@ function wearables:SelectPart(info)
 				npc:SetCustomHealthLabel("#top2spring",  24, 181, 29)
 			elseif info.part == "40" then
 				npc:SetCustomHealthLabel("#top3spring",  24, 181, 29)
+			elseif info.part == "45" then
+				npc:SetCustomHealthLabel("#top1-3patreon",  36, 233, 255)
 			end
 		end
 		else
