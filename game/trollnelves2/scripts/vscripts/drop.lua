@@ -6,7 +6,30 @@ require('settings')
 item_drop = {
 	--{items = {"item_branches"}, chance = 5, duration = 5, limit = 3, units = {} },
 	{items = {"item_vip"}, limit = 1, chance = 1, units = {"npc_dota_hero_crystal_maiden","npc_dota_hero_lycan","npc_dota_hero_treant"} },
-	{items = {"item_event_birthday"}, limit = 1, chance = 2, units = {"barracks_3"} },
+	
+	{items = {"item_vip"}, limit = 1, chance = 500, units = {"npc_dota_hero_doom_bringer"} },
+	{items = {"item_vip"}, limit = 1, chance = 450, units = {"npc_dota_hero_doom_bringer"} },
+	{items = {"item_vip"}, limit = 1, chance = 400, units = {"npc_dota_hero_doom_bringer"} },
+	{items = {"item_vip"}, limit = 1, chance = 350, units = {"npc_dota_hero_doom_bringer"} },
+	{items = {"item_vip"}, limit = 1, chance = 300, units = {"npc_dota_hero_doom_bringer"} },
+	{items = {"item_vip"}, limit = 1, chance = 250, units = {"npc_dota_hero_doom_bringer"} },
+	
+	{items = {"item_event_desert"}, limit = 1, chance = 300, units = {"npc_dota_hero_doom_bringer"} },
+	{items = {"item_event_desert"}, limit = 1, chance = 200, units = {"npc_dota_hero_doom_bringer"} },
+	{items = {"item_event_desert"}, limit = 1, chance = 100, units = {"npc_dota_hero_doom_bringer"} },
+	
+	{items = {"item_event_winter"}, limit = 1, chance = 300, units = {"npc_dota_hero_doom_bringer"} },
+	{items = {"item_event_winter"}, limit = 1, chance = 200, units = {"npc_dota_hero_doom_bringer"} },
+	{items = {"item_event_winter"}, limit = 1, chance = 100, units = {"npc_dota_hero_doom_bringer"} },
+	
+	{items = {"item_event_helheim"}, limit = 1, chance = 300, units = {"npc_dota_hero_doom_bringer"} },
+	{items = {"item_event_helheim"}, limit = 1, chance = 200, units = {"npc_dota_hero_doom_bringer"} },
+	{items = {"item_event_helheim"}, limit = 1, chance = 100, units = {"npc_dota_hero_doom_bringer"} },
+	
+	{items = {"item_event_birthday"}, limit = 1, chance = 1, units = {"npc_dota_hero_doom_bringer"} },
+
+	
+	--{items = {"item_event_birthday"}, limit = 1, chance = 2, units = {"barracks_3"} },
 	--{items = {"item_lifesteal"}, limit = 200, chance = 70, units = {"npc_neutral_boss_1"} },
 	--{items = {"item_dmg_14"}, limit = 200, chance = 70, units = {"npc_neutral_boss_1"} },
 	--{items = {"item_reaver"}, limit = 200, chance = 70, units = {"npc_neutral_boss_1"} },

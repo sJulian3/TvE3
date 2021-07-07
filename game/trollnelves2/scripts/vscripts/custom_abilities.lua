@@ -314,7 +314,7 @@ function TeleportTo (event)
 end
 
 function GoldOnAttack (event)
-	if IsServer() then
+	if IsServer() and event.unit:GetUnitName() ~= 'npc_dota_hero_doom_bringer' then
 		local caster = event.caster
 		local dmg = math.floor(event.DamageDealt) * GameRules.MapSpeed
 		PlayerResource:ModifyGold(caster,dmg)

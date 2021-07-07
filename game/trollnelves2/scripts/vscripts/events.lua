@@ -247,6 +247,7 @@ function trollnelves2:OnEntityKilled(keys)
     if IsBuilder(killed) then BuildingHelper:ClearQueue(killed) end
     if killed:IsRealHero() then
         local bounty = -1
+        drop:RollItemDrop(killed)
         if killed:IsElf() and killed.alive then
             GameRules.PlayersBase[killedPlayerID] = nil
             bounty = ElfKilled(killed)
@@ -265,7 +266,6 @@ function trollnelves2:OnEntityKilled(keys)
                 GameRules:SendCustomMessage("The game can be left, thanks!", 1, 1)
                 return
             end
-            drop:RollItemDrop(killed)
             Pets.DeletePet(info)
             elseif killed:IsTroll() then
             GameRules.Bonus[attackerPlayerID] = GameRules.Bonus[attackerPlayerID] + 2
@@ -289,7 +289,6 @@ function trollnelves2:OnEntityKilled(keys)
                 GameRules.Bonus[attackerPlayerID] =
                 GameRules.Bonus[attackerPlayerID] + 1
             end
-            drop:RollItemDrop(killed)
            Pets.DeletePet(info)
             elseif killed:IsAngel() then
             bounty = math.max(PlayerResource:GetGold(killedPlayerID),
@@ -302,7 +301,6 @@ function trollnelves2:OnEntityKilled(keys)
                 {duration = 5})
             end)
             killed:ClearInventoryCM()
-            drop:RollItemDrop(killed)
             Pets.DeletePet(info)
         end
         if bounty >= 0 and attacker ~= killed then
