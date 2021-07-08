@@ -1,9 +1,17 @@
 "AddonInfo"
 {
   "TeamCount" "3"
-  "maps"      "china spring spring2x spring4x winter winter2x winter4x autumn autumn2x autumn4x"
+  "maps"      "china desert helheim spring spring2x spring4x winter winter2x winter4x autumn autumn2x autumn4x"
   "IsPlayable"  "1"
   "china"
+  {
+    "MaxPlayers"                    "16"
+  }
+  "desert"
+  {
+    "MaxPlayers"                    "16"
+  }
+  "helheim"
   {
     "MaxPlayers"                    "16"
   }
