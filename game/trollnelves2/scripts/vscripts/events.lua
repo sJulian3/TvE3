@@ -403,7 +403,7 @@ function ElfKilled(killed)
     killed.alive = false
     killed.legitChooser = true
     
-    local bounty = PlayerResource:GetGold(killedID)
+    local bounty = PlayerResource:GetGold(killedID)/10
     PlayerResource:SetGold(killed, 0)
     PlayerResource:SetLumber(killed, 0)
     

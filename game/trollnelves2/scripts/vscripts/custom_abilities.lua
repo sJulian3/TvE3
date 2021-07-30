@@ -732,7 +732,7 @@ function HpRegenModifier(keys)
 	end	
 	if caster and caster.hpReg then
 		caster.hpReg = caster.hpReg + keys.Amount
-		CustomGameEventManager:Send_ServerToAllClients("custom_hp_reg", { value=(caster.hpReg-caster.hpRegDebuff),unit=caster:GetEntityIndex() })
+		CustomGameEventManager:Send_ServerToAllClients("custom_hp_reg", { value=(max(caster.hpReg-caster.hpRegDebuff,0)),unit=caster:GetEntityIndex() })
 	end
 	end)
 end
