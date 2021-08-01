@@ -307,10 +307,12 @@ function TeleportTo (event)
 	for i=1,#GameRules.trollTps do
 		local units = FindUnitsInRadius(caster:GetTeamNumber(), GameRules.trollTps[i] , nil, 200 , DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_HERO , DOTA_UNIT_TARGET_FLAG_NONE, 0 , false)
 		if #units == 0 then
+			caster:SetHullRadius(1) --160
 			FindClearSpaceForUnit( caster , GameRules.trollTps[i] , true )
 			break
 		end
 	end
+	caster:SetHullRadius(32) --160
 end
 
 function GoldOnAttack (event)

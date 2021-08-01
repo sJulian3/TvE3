@@ -219,7 +219,7 @@ end
 
 function InitializeBadHero(hero)
     DebugPrint("Initialize bad hero")
-    
+    local status, nextCall = Error_debug.ErrorCheck(function() 
     hero.hpReg = 0
     hero.hpRegDebuff = 0
     Timers:CreateTimer(function()
@@ -233,6 +233,7 @@ function InitializeBadHero(hero)
             hero:SetHealth(hero:GetHealth() + ratedHpReg)
         end
         return rate
+    end)
     end)
     
     -- Give small flying vision around hero to see elf walls/rocks on highground
