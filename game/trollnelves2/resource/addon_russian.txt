@@ -1674,7 +1674,7 @@
 		"peventwinter"																			"Выдается за участие в Winter event."
 		"peventspring"																			"Выдается за участие в Spring event."
 		"peventsummer"																			"Выдается за участие в Summer event."
-		"discordnitro"																			"Awarded for boosting the Discord server."
+		"discordnitro"																			"Будет выдаваться за поддержку сообщества TvE3 в социальных сетях."
 		
 		"seveasdefault"																			"Сохранить по умолчанию"
 		

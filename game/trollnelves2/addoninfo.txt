@@ -1,20 +1,8 @@
 "AddonInfo"
 {
   "TeamCount" "3"
-  "maps"      "china china2x china4x spring spring2x spring4x winter winter2x winter4x autumn autumn2x autumn4x"
+  "maps"      "spring spring2x spring4x winter winter2x winter4x autumn autumn2x autumn4x"
   "IsPlayable"  "1"
-  "china"
-  {
-    "MaxPlayers"                    "16"
-  }
-  "china2x"
-  {
-    "MaxPlayers"                    "16"
-  }
-  "china4x"
-  {
-    "MaxPlayers"                    "14"
-  }
   "spring"
   {
     "MaxPlayers"                    "16"

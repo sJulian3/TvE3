@@ -1822,7 +1822,7 @@
 		"peventwinter"																			"Awarded for participating in a Winter event. Pets are not included in the donation effect."
 		"peventspring"																			"Awarded for participating in a Spring event. Pets are not included in the donation effect."
 		"peventsummer"																			"Awarded for participating in a Spring event. Pets are not included in the donation effect."
-		"discordnitro"																			"Awarded for boosting the Discord server."
+		"discordnitro"																			"Will be issued for community support in TvE3 on social media."
 		
 		
 		"seveasdefault"																			"Save as default"
