@@ -221,7 +221,10 @@ function Pets.CreatePet( keys, num )
 	elseif num == "15" then
 		model = "models/items/courier/faceless_rex/faceless_rex.vmdl" -- discord
 		effect = "particles/econ/courier/courier_greevil_purple/courier_greevil_purple_ambient_3.vpcf"
-	end
+	elseif num == "16" then
+		model = "models/items/courier/courier_ti10_radiant/courier_ti10_radiant_lvl4/courier_ti10_radiant_lvl4.vmdl" -- discord
+		effect = "particles/econ/courier/courier_ti10/courier_ti10_lvl4_ambient.vpcf"
+	end 
 	
 	if model ~= "" then
 		local pet = CreateUnitByName( "npc_cosmetic_pet", hero:GetAbsOrigin() + RandomVector( RandomInt( 6000, 8000 ) ), true, hero, hero, hero:GetTeam() )

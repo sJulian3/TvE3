@@ -478,12 +478,17 @@ function InitializeWolf(hero)
     local playerID = hero:GetPlayerOwnerID()
     DebugPrint("Initialize wolf, playerID: " .. playerID)
     DebugPrint("GameRules.trollID: " .. GameRules.trollID)
-    local trollNetworth = GameRules.trollHero:GetNetworth()
+    local koeff = 1
+    if (GameRules:GetGameTime() - GameRules.startTime) <= 600 then
+        koeef = 2
+    end
+    local trollNetworth = math.floor(GameRules.trollHero:GetNetworth()/koeef)
     local lumber = trollNetworth / 64000 * WOLF_STARTING_RESOURCES_FRACTION
     local gold = math.floor((lumber - math.floor(lumber)) * 64000)
     lumber = math.floor(lumber)
-    PlayerResource:SetGold(hero, gold)
-    PlayerResource:SetLumber(hero, lumber)
+
+    PlayerResource:SetGold(hero, math.floor(gold/koeff))
+    PlayerResource:SetLumber(hero, math.floor(lumber/koeff))
     
     trollnelves2:ControlUnitForTroll(hero)
     

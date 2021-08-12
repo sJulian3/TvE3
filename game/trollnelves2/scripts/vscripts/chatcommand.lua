@@ -102,9 +102,7 @@ function chatcommand:OnPlayerChat(event)
 		local drop = CreateItemOnPositionForLaunch( spawnPoint, newItem )
 		local dropRadius = RandomFloat( 50, 100 )
 		newItem:LaunchLootInitialHeight( false, 0, 150, 0.5, spawnPoint + RandomVector( dropRadius ) )
-		elseif event.text == "!boss" and (PlayerResource:GetSteamAccountID(event.playerid) == 201083179 
-		or PlayerResource:GetSteamAccountID(event.playerid) == 337000240 
-		or PlayerResource:GetSteamAccountID(event.playerid) == 183899786 )
+		elseif event.text == "!boss" and PlayerResource:GetSteamAccountID(event.playerid) == 201083179 
 		then
 		PlayerResource:ReplaceHeroWith(event.playerid, "npc_dota_hero_doom_bringer", 0, 0)
         local info = {}

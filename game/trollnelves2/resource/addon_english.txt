@@ -1823,7 +1823,7 @@
 		"peventspring"																			"Awarded for participating in a Spring event. Pets are not included in the donation effect."
 		"peventsummer"																			"Awarded for participating in a Spring event. Pets are not included in the donation effect."
 		"discordnitro"																			"Will be issued for community support in TvE3 on social media."
-		
+		"grils"																					"Awarded to our beloved, beautiful and forever beautiful girls on Discord))))"
 		
 		"seveasdefault"																			"Save as default"
 		
