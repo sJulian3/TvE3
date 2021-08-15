@@ -430,8 +430,8 @@ function BuildingHelper:OnTreeCut(keys)
 end
 
 function BuildingHelper:InitGNV()
-    local worldMin = Vector(GetWorldMinX(), GetWorldMinY(), 0)
-    local worldMax = Vector(GetWorldMaxX(), GetWorldMaxY(), 0)
+    local worldMin = Vector(-11000, -11000, 0)
+    local worldMax = Vector(11000, 11000, 0)
     
     local boundX1 = GridNav:WorldToGridPosX(worldMin.x)
     local boundX2 = GridNav:WorldToGridPosX(worldMax.x)
@@ -439,10 +439,8 @@ function BuildingHelper:InitGNV()
     local boundY2 = GridNav:WorldToGridPosY(worldMax.y)
     
     BuildingHelper:print("Max World Bounds: ")
-    BuildingHelper:print(GetWorldMinX() .. ' ' .. GetWorldMaxX() .. ' ' ..
-    GetWorldMinY() .. ' ' .. GetWorldMaxY())
-    BuildingHelper:print(boundX1 .. ' ' .. boundX2 .. ' ' .. boundY1 .. ' ' ..
-    boundY2)
+    BuildingHelper:print(GetWorldMinX() .. ' ' .. GetWorldMaxX() .. ' ' .. GetWorldMinY() .. ' ' .. GetWorldMaxY())
+    BuildingHelper:print(boundX1 .. ' ' .. boundX2 .. ' ' .. boundY1 .. ' ' .. boundY2)
     
     local blockedCount = 0
     local unblockedCount = 0
@@ -452,7 +450,7 @@ function BuildingHelper:InitGNV()
     local ASCII_ART = false
     
     -- Trigger zones named "bh_blocked" will block the terrain for construction
-    local blocked_map_zones = Entities:FindAllByName("*bh_blocked")
+    local blocked_map_zones = Entities:FindAllByName("bh_blocked")
     local entities = Entities:FindAllByClassname("npc_dota_creature")
     
     for y = boundY1, boundY2 do
@@ -466,23 +464,21 @@ function BuildingHelper:InitGNV()
             local treeBlocked = GridNav:IsNearbyTree(position, 30, true)
             
             -- If tree updating is enabled, trees aren't networked but detected as ent_dota_tree entities on clients
-            local terrainBlocked = not GridNav:IsTraversable(position) or
-            GridNav:IsBlocked(position)
+            local terrainBlocked = not GridNav:IsTraversable(position) or GridNav:IsBlocked(position)
             if BuildingHelper.Settings["UPDATE_TREES"] then
                 terrainBlocked = terrainBlocked and not treeBlocked
             end
-            
             if not terrainBlocked then
                 -- Check if the position is inside any blocking trigger
                 for _, ent in pairs(blocked_map_zones) do
-                    local triggerBlocked =
-                    BuildingHelper:IsInsideEntityBounds(ent, position)
+                    local triggerBlocked = BuildingHelper:IsInsideEntityBounds(ent, position)
                     if triggerBlocked then
                         terrainBlocked = true
                         break
                     end
                 end
             end
+            --[[
             if not terrainBlocked then
                 for _, entity in pairs(entities) do
                     local isInside =
@@ -494,7 +490,7 @@ function BuildingHelper:InitGNV()
                     end
                 end
             end
-            
+            ]]
             if terrainBlocked then
                 BuildingHelper.Terrain[y][x] =
                 BuildingHelper.GridTypes["BLOCKED"]
@@ -530,7 +526,7 @@ function BuildingHelper:InitGNV()
             line = {}
         end
     end
-    
+    BuildingHelper:print("local gnv_string = table.concat(gnv, '') ")
     local gnv_string = table.concat(gnv, '')
     
     -- Running-length encoding
@@ -2420,13 +2416,8 @@ function BuildingHelper:ValidPosition(size, location, unit, callbacks)
     -- Check enemy units blocking the area
     local construction_radius = size * 64
     local target_type = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC
-    local flags = DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES +
-    DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE +
-    DOTA_UNIT_TARGET_FLAG_NO_INVIS
-    local enemies = FindUnitsInRadius(unit:GetTeamNumber(), location, nil,
-        construction_radius,
-        DOTA_UNIT_TARGET_TEAM_ENEMY, target_type,
-    flags, FIND_ANY_ORDER, false)
+    local flags = DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES  
+    local enemies = FindUnitsInRadius(unit:GetTeamNumber(), location, nil, construction_radius, DOTA_UNIT_TARGET_TEAM_ENEMY, target_type, flags, FIND_ANY_ORDER, false)
     for _, enemy in pairs(enemies) do
         local origin = enemy:GetAbsOrigin()
         if not IsCustomBuilding(enemy) and
