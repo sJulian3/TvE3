@@ -65,8 +65,8 @@ function trollnelves2:GameSetup()
     if IsServer() then
         for pID = 0, DOTA_MAX_TEAM_PLAYERS do
             if PlayerResource:IsValidPlayerID(pID) then
-                --PlayerResource:SetCustomTeamAssignment(pID, DOTA_TEAM_GOODGUYS)
-                -- PlayerResource:SetSelectedHero(pID, ELF_HERO)
+                PlayerResource:SetCustomTeamAssignment(pID, DOTA_TEAM_GOODGUYS)
+                PlayerResource:SetSelectedHero(pID, ELF_HERO)
                 GameRules.Score[pID] = 0
                 GameRules.PlayersFPS[pID] = false
                 local steam = tostring(PlayerResource:GetSteamID(pID))
