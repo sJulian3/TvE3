@@ -948,6 +948,14 @@ function StealGold(event)
 	local playerID = GameRules.trollID
 	local hero = GameRules.trollHero
 	local sum = math.ceil(hero:GetNetworth()*0.003)+10
+	local trollCount = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_BADGUYS)
+		for i = 1, trollCount do
+			local pID = PlayerResource:GetNthPlayerIDOnTeam(DOTA_TEAM_BADGUYS, i)
+			local playerHero = PlayerResource:GetSelectedHeroEntity(pID)
+			if playerHero then
+				sum = math.max( sum,  math.ceil(playerHero:GetNetworth()*0.003)+10 )
+			end
+		end
 	local maxSum = 50000
 	local units = Entities:FindAllByClassname("npc_dota_creature")
 

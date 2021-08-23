@@ -235,7 +235,7 @@ function UpgradeBuilding( event )
     local upgrades = GetUnitKV(building:GetUnitName(),"Upgrades")
     local buildTime = GetUnitKV(NewBuildingName,"BuildTime")
     
-    if GameRules.MapSpeed == 4 then
+    if GameRules.MapSpeed == 4 and NewBuildingName ~= "tower_19" and NewBuildingName ~= "tower_19_1" and NewBuildingName ~= "tower_19_2" and not string.match(NewBuildingName,"rock") then
         buildTime = buildTime/4
     end
     

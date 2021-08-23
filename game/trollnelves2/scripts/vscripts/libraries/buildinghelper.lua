@@ -429,6 +429,15 @@ function BuildingHelper:OnTreeCut(keys)
     end)
 end
 
+function BuildingHelper:BlockBH()
+    -- Trigger zones named "bh_blocked" will block the terrain for construction
+    local blocked_map_zones = Entities:FindAllByName("*bh_blocked")
+                    -- Check if the position is inside any blocking trigger
+    for _, ent in pairs(blocked_map_zones) do
+        BuildingHelper:IsInsideEntityBounds(ent)
+    end
+end
+
 function BuildingHelper:InitGNV()
     local worldMin = Vector(-11000, -11000, 0)
     local worldMax = Vector(11000, 11000, 0)
@@ -449,15 +458,22 @@ function BuildingHelper:InitGNV()
     local line = {}
     local ASCII_ART = false
     
-    -- Trigger zones named "bh_blocked" will block the terrain for construction
-    local blocked_map_zones = Entities:FindAllByName("bh_blocked")
-    local entities = Entities:FindAllByClassname("npc_dota_creature")
+   -- local entities = Entities:FindAllByClassname("npc_dota_creature")
     
+    for y = boundY1, boundY2 do
+        if BuildingHelper.Terrain[y] == nil then
+             BuildingHelper.Terrain[y] = {}
+         end
+    end
+    BuildingHelper:BlockBH()
     for y = boundY1, boundY2 do
         local shift = 4
         local byte = 0
-        BuildingHelper.Terrain[y] = {}
+        if BuildingHelper.Terrain[y] == nil then
+            BuildingHelper.Terrain[y] = {}
+        end
         for x = boundX1, boundX2 do
+           -- BuildingHelper:print("y " .. y .. " x" .. x)
             local gridX = GridNav:GridPosToWorldCenterX(x)
             local gridY = GridNav:GridPosToWorldCenterY(y)
             local position = Vector(gridX, gridY, 0)
@@ -468,6 +484,7 @@ function BuildingHelper:InitGNV()
             if BuildingHelper.Settings["UPDATE_TREES"] then
                 terrainBlocked = terrainBlocked and not treeBlocked
             end
+                        --[[
             if not terrainBlocked then
                 -- Check if the position is inside any blocking trigger
                 for _, ent in pairs(blocked_map_zones) do
@@ -478,26 +495,34 @@ function BuildingHelper:InitGNV()
                     end
                 end
             end
-            --[[
-            if not terrainBlocked then
+
+                if not terrainBlocked then
                 for _, entity in pairs(entities) do
-                    local isInside =
-                    BuildingHelper:IsInsideEntityConstructionArea(entity,
-                    position)
-                    if isInside then
-                        terrainBlocked = true
-                        break
-                    end
+                local isInside =
+                BuildingHelper:IsInsideEntityConstructionArea(entity,
+                position)
+                if isInside then
+                terrainBlocked = true
+                break
                 end
-            end
+                end
+                end
             ]]
+
+           -- BuildingHelper:print("y " .. y .. " x " .. x)
+
+            if BuildingHelper.Terrain[y][x] ~= nil then
+                --BuildingHelper:print("BuildingHelper.Terrain[y][x] == BLOCKED")
+                terrainBlocked = true
+            end
+
             if terrainBlocked then
                 BuildingHelper.Terrain[y][x] =
                 BuildingHelper.GridTypes["BLOCKED"]
                 byte = byte + bit.lshift(2, shift)
                 blockedCount = blockedCount + 1
                 if ASCII_ART then line[#line + 1] = '=' end
-                else
+            else
                 BuildingHelper.Terrain[y][x] =
                 BuildingHelper.GridTypes["BUILDABLE"]
                 byte = byte + bit.lshift(1, shift)
@@ -561,7 +586,7 @@ function BuildingHelper:InitGNV()
     -- The construction grid is only known by the server
     BuildingHelper.Grid = BuildingHelper.Terrain
     
-    BuildingHelper.Encoded = gnvRLE_string
+    BuildingHelper.Encoded = BuildingHelper.Encoded .. gnvRLE_string
     BuildingHelper.squareX = squareX
     BuildingHelper.squareY = squareY
     BuildingHelper.minBoundX = boundX1
@@ -696,22 +721,22 @@ function BuildingHelper:OnSelectionUpdate(event)
     local playerID = event.PlayerID
     if not playerID then return end
     
--- This is for Building Helper to know which is the currently active builder
-local mainSelected = PlayerResource:GetMainSelectedEntity(playerID)
-if not mainSelected then return end
-mainSelected = EntIndexToHScript(mainSelected)
-local player = BuildingHelper:GetPlayerTable(playerID)
-
-if IsValidEntity(mainSelected) then
-    if IsBuilder(mainSelected) then
-        player.activeBuilder = mainSelected
-        else
-        if IsValidEntity(player.activeBuilder) then
-            -- Clear ghost particles when swapping to a non-builder
-            BuildingHelper:StopGhost(player.activeBuilder)
+    -- This is for Building Helper to know which is the currently active builder
+    local mainSelected = PlayerResource:GetMainSelectedEntity(playerID)
+    if not mainSelected then return end
+    mainSelected = EntIndexToHScript(mainSelected)
+    local player = BuildingHelper:GetPlayerTable(playerID)
+    
+    if IsValidEntity(mainSelected) then
+        if IsBuilder(mainSelected) then
+            player.activeBuilder = mainSelected
+            else
+            if IsValidEntity(player.activeBuilder) then
+                -- Clear ghost particles when swapping to a non-builder
+                BuildingHelper:StopGhost(player.activeBuilder)
+            end
         end
     end
-end
 end
 
 function BuildingHelper:RightClickOrder(event)
@@ -1280,9 +1305,10 @@ function BuildingHelper:UpgradeBuilding(building, newName)
     local bPlayerCanControl = GetUnitKV(newName, "PlayerCanControl") or 0
     
     local buildTime = GetUnitKV(newName, "BuildTime") or 3
-    
-    if GameRules.MapSpeed == 4 then
+    BuildingHelper:print(newName)
+    if GameRules.MapSpeed == 4 and newName ~= "tower_19" and newName ~= "tower_19_1" and newName ~= "tower_19_2" then
         buildTime = buildTime/4
+        BuildingHelper:print("newName2")
     end
     
     local bScale = GetUnitKV(newName, "Scale") or 0
@@ -1694,7 +1720,7 @@ function BuildingHelper:StartBuilding(builder)
                                 -- Consume Builder
                                 if bConsumesBuilder then
                                     --null
-                                else
+                                    else
                                     BuildingHelper:ShowBuilder(builder)
                                 end
                                 
@@ -3291,21 +3317,31 @@ return towerPos
 end
 
 -- Used to find if a position is insde the trigger entity bounds
-function BuildingHelper:IsInsideEntityBounds(entity, location)
+function BuildingHelper:IsInsideEntityBounds(entity)
     local origin = entity:GetAbsOrigin()
     local bounds = entity:GetBounds()
     local min = bounds.Mins
     local max = bounds.Maxs
-    local X = location.x
-    local Y = location.y
-    local minX = min.x + origin.x
-    local minY = min.y + origin.y
-    local maxX = max.x + origin.x
-    local maxY = max.y + origin.y
-    local betweenX = X >= minX and X <= maxX
-    local betweenY = Y >= minY and Y <= maxY
+    local minX = GridNav:WorldToGridPosX(math.ceil(min.x + origin.x))
+    local minY = GridNav:WorldToGridPosX(math.ceil(min.y + origin.y))
+    local maxX = GridNav:WorldToGridPosX(math.ceil(max.x + origin.x))
+    local maxY = GridNav:WorldToGridPosX(math.ceil(max.y + origin.y))
     
-    return betweenX and betweenY
+    --BuildingHelper:print("minY " .. minY .. " maxY " .. maxY)
+    --BuildingHelper:print("minX " .. minX .. " maxX " .. maxX)
+
+    --BuildingHelper:print("min.y " .. min.y .. " max.y " .. max.y)
+    --BuildingHelper:print("min.x " .. min.x .. " max.x " .. max.x)
+    for y = minY, maxY do
+        for x = minX, maxX do
+            --BuildingHelper:print("BuildingHelper.GridTypes[BLOCKED]")
+           -- BuildingHelper:print("y " .. y .. " x " .. x)
+           -- BuildingHelper.Grid[y][x] = BuildingHelper.GridTypes["BLOCKED"]
+            BuildingHelper.Terrain[y][x] = BuildingHelper.GridTypes["BLOCKED"]
+           -- BuildingHelper:print("BuildingHelper.Terrain[y][x] " .. BuildingHelper.Terrain[y][x])
+        end
+    end
+
 end
 
 function BuildingHelper:IsInsideEntityConstructionArea(entity, location)
@@ -3347,31 +3383,31 @@ end
 
 -- Builders are stored in a nettable in addition to the builder label
 function IsBuilder(unit)
-    local table = CustomNetTables:GetTableValue("builders", tostring(unit:GetEntityIndex()))
-    if unit ~= nil then
-        return unit:GetUnitLabel() == "builder" or (table and (table["IsBuilder"] == 1)) or unit:HasAbility("repair") or false
-    else
-        return false
-    end
+local table = CustomNetTables:GetTableValue("builders", tostring(unit:GetEntityIndex()))
+if unit ~= nil then
+return unit:GetUnitLabel() == "builder" or (table and (table["IsBuilder"] == 1)) or unit:HasAbility("repair") or false
+else
+return false
+end
 end
 
 function CDOTA_BaseNPC:GetFollowRange(target)
-    return self:GetHullRadius() + target:GetHullRadius() + 100
+return self:GetHullRadius() + target:GetHullRadius() + 100
 end
 
 function IsLumberHarvester(unit)
-    return unit:HasAbility("gather_lumber_8") or
-    unit:HasAbility("gather_lumber_4") or
-    unit:HasAbility("gather_lumber_2") or
-    unit:HasAbility("gather_lumber_1")
+return unit:HasAbility("gather_lumber_8") or
+unit:HasAbility("gather_lumber_4") or
+unit:HasAbility("gather_lumber_2") or
+unit:HasAbility("gather_lumber_1")
 end
 
 function IsCustomBuilding(unit) return unit:HasModifier("modifier_building") end
 
 function BuildingHelper:AddModifierBuilding(building)
-    local magicImmune = BuildingHelper.Settings["MAGIC_IMMUNE_BUILDINGS"]
-    local deniable = BuildingHelper.Settings["DENIABLE_BUILDINGS"]
-    local disableTurning = GetUnitKV(name, "DisableTurning") == 1 or
+local magicImmune = BuildingHelper.Settings["MAGIC_IMMUNE_BUILDINGS"]
+local deniable = BuildingHelper.Settings["DENIABLE_BUILDINGS"]
+local disableTurning = GetUnitKV(name, "DisableTurning") == 1 or
 BuildingHelper.Settings["DISABLE_BUILDING_TURNING"]
 building:AddNewModifier(building, nil, "modifier_building", {
 disable_turning = disableTurning,

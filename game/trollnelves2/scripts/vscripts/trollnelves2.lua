@@ -1,7 +1,7 @@
 -- This is the primary trollnelves2 trollnelves2 script and should be used to assist in initializing your game mode
 -- Set this to true if you want to see a complete debug output of all events/processes done by trollnelves2
 -- You can also change the cvar 'trollnelves2_spew' at any time to 1 or 0 for output/no output
-TROLLNELVES2_DEBUG_SPEW = false
+TROLLNELVES2_DEBUG_SPEW = true
 LinkLuaModifier("modifier_movespeed_x4",
     "libraries/modifiers/modifier_movespeed_x4.lua",
 LUA_MODIFIER_MOTION_NONE)
@@ -524,235 +524,235 @@ function trollnelves2:PreStart()
                     GameRules.startTime = GameRules:GetGameTime()
                     
                     -- Unstun the elves
-            local elfCount = PlayerResource:GetPlayerCountForTeam(
-            DOTA_TEAM_GOODGUYS)
-            for i = 1, elfCount do
-            local pID = PlayerResource:GetNthPlayerIDOnTeam(
-            DOTA_TEAM_GOODGUYS, i)
-            local playerHero = PlayerResource:GetSelectedHeroEntity(pID)
-            if playerHero then
-            playerHero:RemoveModifierByName("modifier_stunned")
+                    local elfCount = PlayerResource:GetPlayerCountForTeam(
+                    DOTA_TEAM_GOODGUYS)
+                    for i = 1, elfCount do
+                        local pID = PlayerResource:GetNthPlayerIDOnTeam(
+                        DOTA_TEAM_GOODGUYS, i)
+                        local playerHero = PlayerResource:GetSelectedHeroEntity(pID)
+                        if playerHero then
+                            playerHero:RemoveModifierByName("modifier_stunned")
+                        end
+                    end
+                    
+                    local trollSpawnTimer = TROLL_SPAWN_TIME
+                    local trollHero = GameRules.trollHero
+                    trollHero:AddNewModifier(nil, nil, "modifier_stunned",
+                    {duration = trollSpawnTimer})
+                    if GameRules.MapSpeed >= 4 then
+                        PlayerResource:SetGold(trollHero, TROLL_STARTING_GOLD_X4)
+                        else
+                        PlayerResource:SetGold(trollHero, TROLL_STARTING_GOLD)
+                    end
+                    PlayerResource:SetLumber(trollHero, TROLL_STARTING_LUMBER)
+                    
+                    Timers:CreateTimer(function()
+                        if trollSpawnTimer > 0 then
+                            Notifications:ClearBottomFromAll()
+                            Notifications:BottomToAll(
+                                {
+                                    text = "Troll spawns in " .. trollSpawnTimer,
+                                    style = {color = '#E62020'},
+                                    duration = 1
+                                })
+                                trollSpawnTimer = trollSpawnTimer - 1
+                                return 1.0
+                        end
+                    end)
+                    else
+                    Notifications:ClearBottomFromAll()
+                    Notifications:BottomToAll(
+                        {
+                            text = "Troll hasn't spawned yet!Resetting!",
+                            style = {color = '#E62020'},
+                            duration = 1
+                        })
+                        gameStartTimer = 3
+                        return 1.0
             end
-            end
-            
-            local trollSpawnTimer = TROLL_SPAWN_TIME
-            local trollHero = GameRules.trollHero
-            trollHero:AddNewModifier(nil, nil, "modifier_stunned",
-            {duration = trollSpawnTimer})
-            if GameRules.MapSpeed >= 4 then
-            PlayerResource:SetGold(trollHero, TROLL_STARTING_GOLD_X4)
-            else
-            PlayerResource:SetGold(trollHero, TROLL_STARTING_GOLD)
-            end
-            PlayerResource:SetLumber(trollHero, TROLL_STARTING_LUMBER)
-            
-            Timers:CreateTimer(function()
-            if trollSpawnTimer > 0 then
-            Notifications:ClearBottomFromAll()
-            Notifications:BottomToAll(
-            {
-            text = "Troll spawns in " .. trollSpawnTimer,
-            style = {color = '#E62020'},
-            duration = 1
-            })
-            trollSpawnTimer = trollSpawnTimer - 1
-            return 1.0
-            end
-            end)
-            else
-            Notifications:ClearBottomFromAll()
-            Notifications:BottomToAll(
-            {
-            text = "Troll hasn't spawned yet!Resetting!",
-            style = {color = '#E62020'},
-            duration = 1
-            })
-            gameStartTimer = 3
-            return 1.0
-            end
-            end
-            end)
-            
-            if IsServer() then
-            for pID = 0, DOTA_MAX_TEAM_PLAYERS do
+        end
+    end)
+    
+    if IsServer() then
+        for pID = 0, DOTA_MAX_TEAM_PLAYERS do
             if PlayerResource:IsValidPlayerID(pID) then
-            local hero = PlayerResource:GetSelectedHeroEntity(pID)
-            local steam = tostring(PlayerResource:GetSteamID(pID))
-            Stats.RequestVip(pID, steam, callback)
-            Stats.RequestBonus(pID, steam, callback)
-            Stats.RequestData(pID)
-            Stats.RequestVipDefaults(pID, steam, callback)
-            Stats.RequestPetsDefaults(pID, steam, callback)
-            Stats.RequestPets(pID, steam, callback)
-            Timers:CreateTimer(15, function() wearables:SetPart() end)     
-            Timers:CreateTimer(30, function() SelectPets:SetPets() end)       
+                local hero = PlayerResource:GetSelectedHeroEntity(pID)
+                local steam = tostring(PlayerResource:GetSteamID(pID))
+                Stats.RequestVip(pID, steam, callback)
+                Stats.RequestBonus(pID, steam, callback)
+                Stats.RequestData(pID)
+                Stats.RequestVipDefaults(pID, steam, callback)
+                Stats.RequestPetsDefaults(pID, steam, callback)
+                Stats.RequestPets(pID, steam, callback)
+                Timers:CreateTimer(15, function() wearables:SetPart() end)     
+                Timers:CreateTimer(30, function() SelectPets:SetPets() end)       
             end
-            end
-            Timers:CreateTimer(5, function() Stats.RequestDataTop10("1", callback) end)
-            Timers:CreateTimer(10, function() Stats.RequestDataTop10("2", callback) end)
-            Timers:CreateTimer(15, function() Stats.RequestDataTop10("3", callback) end)
-            Timers:CreateTimer(20, function() Stats.RequestDataTop10("4", callback) end)
-            Donate:CreateList()
-            end
-            
-            end
-            
-            function StartCreatingMinimapBuildings()
-            Timers:CreateTimer(0.3, function()
-            if GameRules:State_Get() > DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        end
+        Timers:CreateTimer(5, function() Stats.RequestDataTop10("1", callback) end)
+        Timers:CreateTimer(10, function() Stats.RequestDataTop10("2", callback) end)
+        Timers:CreateTimer(15, function() Stats.RequestDataTop10("3", callback) end)
+        Timers:CreateTimer(20, function() Stats.RequestDataTop10("4", callback) end)
+        Donate:CreateList()
+    end
+    
+end
+
+function StartCreatingMinimapBuildings()
+    Timers:CreateTimer(0.3, function()
+        if GameRules:State_Get() > DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
             return
-            end
-            -- Create minimap entities for buildings that are visible and don't already have a minimap entity
-            local allEntities = Entities:FindAllByClassname("npc_dota_creature")
-            for _, unit in pairs(allEntities) do
+        end
+        -- Create minimap entities for buildings that are visible and don't already have a minimap entity
+        local allEntities = Entities:FindAllByClassname("npc_dota_creature")
+        for _, unit in pairs(allEntities) do
             if not unit:IsNull() and IsCustomBuilding(unit) and
-            not unit.minimapEntity and unit:GetTeamNumber() ~=
-            DOTA_TEAM_BADGUYS and
-            IsLocationVisible(DOTA_TEAM_BADGUYS, unit:GetAbsOrigin()) then
-            unit.minimapEntity = CreateUnitByName("minimap_entity",
-            unit:GetAbsOrigin(),
-            false, unit:GetOwner(),
-            unit:GetOwner(),
-            unit:GetTeamNumber())
-            unit.minimapEntity:AddNewModifier(unit.minimapEntity, nil,
-            "modifier_minimap", {})
-            unit.minimapEntity.correspondingEntity = unit
+                not unit.minimapEntity and unit:GetTeamNumber() ~=
+                DOTA_TEAM_BADGUYS and
+                IsLocationVisible(DOTA_TEAM_BADGUYS, unit:GetAbsOrigin()) then
+                unit.minimapEntity = CreateUnitByName("minimap_entity",
+                    unit:GetAbsOrigin(),
+                    false, unit:GetOwner(),
+                    unit:GetOwner(),
+                unit:GetTeamNumber())
+                unit.minimapEntity:AddNewModifier(unit.minimapEntity, nil,
+                "modifier_minimap", {})
+                unit.minimapEntity.correspondingEntity = unit
             end
-            end
-            -- Kill minimap entities of dead buildings when location is scouted
-            local minimapEntities = Entities:FindAllByClassname("npc_dota_building")
-            for k, minimapEntity in pairs(minimapEntities) do
+        end
+        -- Kill minimap entities of dead buildings when location is scouted
+        local minimapEntities = Entities:FindAllByClassname("npc_dota_building")
+        for k, minimapEntity in pairs(minimapEntities) do
             if not minimapEntity:IsNull() and minimapEntity.correspondingEntity ==
-            "dead" and
-            IsLocationVisible(DOTA_TEAM_BADGUYS,
-            minimapEntity:GetAbsOrigin()) then
-            minimapEntity.correspondingEntity = nil
-            minimapEntity:ForceKill(false)
-            UTIL_Remove(minimapEntity)
+                "dead" and
+                IsLocationVisible(DOTA_TEAM_BADGUYS,
+                minimapEntity:GetAbsOrigin()) then
+                minimapEntity.correspondingEntity = nil
+                minimapEntity:ForceKill(false)
+                UTIL_Remove(minimapEntity)
             end
-            end
-            return 0.3
-            end)
-            end
-            
-            -- This function initializes the game mode and is called before anyone loads into the game
-            -- It can be used to pre-initialize any values/tables that will be needed later
-            function trollnelves2:Inittrollnelves2()
-            trollnelves2 = self
-            DebugPrint('[TROLLNELVES2] Starting to load trollnelves2 trollnelves2...')
-            trollnelves2:_Inittrollnelves2()
-            DebugPrint('[TROLLNELVES2] Done loading trollnelves2 trollnelves2!\n\n')
-            end
-            
-            function ModifyLumberPrice(amount)
-            amount = string.match(amount, "[-]?%d+") or 0
-            GameRules.lumberPrice = math.max(GameRules.lumberPrice + amount,
-            MINIMUM_LUMBER_PRICE)
-            CustomGameEventManager:Send_ServerToTeam(DOTA_TEAM_GOODGUYS,
-            "player_lumber_price_changed", {
+        end
+        return 0.3
+    end)
+end
+
+-- This function initializes the game mode and is called before anyone loads into the game
+-- It can be used to pre-initialize any values/tables that will be needed later
+function trollnelves2:Inittrollnelves2()
+    trollnelves2 = self
+    DebugPrint('[TROLLNELVES2] Starting to load trollnelves2 trollnelves2...')
+    trollnelves2:_Inittrollnelves2()
+    DebugPrint('[TROLLNELVES2] Done loading trollnelves2 trollnelves2!\n\n')
+end
+
+function ModifyLumberPrice(amount)
+    amount = string.match(amount, "[-]?%d+") or 0
+    GameRules.lumberPrice = math.max(GameRules.lumberPrice + amount,
+    MINIMUM_LUMBER_PRICE)
+    CustomGameEventManager:Send_ServerToTeam(DOTA_TEAM_GOODGUYS,
+        "player_lumber_price_changed", {
             lumberPrice = GameRules.lumberPrice
-            })
-            end
-            
-            function SetResourceValues()
-            for pID = 0, DOTA_MAX_PLAYERS do
-            if PlayerResource:IsValidPlayer(pID) then
+        })
+end
+
+function SetResourceValues()
+    for pID = 0, DOTA_MAX_PLAYERS do
+        if PlayerResource:IsValidPlayer(pID) then
             CustomNetTables:SetTableValue("resources",
-            tostring(pID) .. "_resource_stats", {
-            gold = PlayerResource:GetGold(pID),
-            lumber = PlayerResource:GetLumber(pID),
-            goldGained = PlayerResource:GetGoldGained(pID),
-            lumberGained = PlayerResource:GetLumberGained(pID),
-            goldGiven = PlayerResource:GetGoldGiven(pID),
-            lumberGiven = PlayerResource:GetLumberGiven(pID),
-            timePassed = GameRules:GetGameTime() - GameRules.startTime,
-            playerScore = GameRules.Score[pID]
-            })
-            end
-            end
-            end
-            
-            function GetModifiedName(orgName)
-            if string.match(orgName, TROLL_HERO) then
-            return "<font color='#FF0000'>The Mighty Troll</font>"
-            elseif string.match(orgName, ELF_HERO) then
-            return "<font color='#00CC00'>Elf</font>"
-            elseif string.match(orgName, WOLF_HERO[1]) or string.match(orgName, WOLF_HERO[2]) then
-            return "<font color='#800000'>Wolf</font>"
-            elseif string.match(orgName, ANGEL_HERO[1]) or string.match(orgName, ANGEL_HERO[2]) then 
-            return "<font color='#0099FF'>Angel</font>"
-            else
-            return "?"
-            end
-            end
-            
-            function SellItem(args)
-            local item = EntIndexToHScript(args.itemIndex)
-            if item then
-            if not item:IsSellable() then
+                tostring(pID) .. "_resource_stats", {
+                    gold = PlayerResource:GetGold(pID),
+                    lumber = PlayerResource:GetLumber(pID),
+                    goldGained = PlayerResource:GetGoldGained(pID),
+                    lumberGained = PlayerResource:GetLumberGained(pID),
+                    goldGiven = PlayerResource:GetGoldGiven(pID),
+                    lumberGiven = PlayerResource:GetLumberGiven(pID),
+                    timePassed = GameRules:GetGameTime() - GameRules.startTime,
+                    playerScore = GameRules.Score[pID]
+                })
+        end
+    end
+end
+
+function GetModifiedName(orgName)
+    if string.match(orgName, TROLL_HERO) then
+        return "<font color='#FF0000'>The Mighty Troll</font>"
+        elseif string.match(orgName, ELF_HERO) then
+        return "<font color='#00CC00'>Elf</font>"
+        elseif string.match(orgName, WOLF_HERO[1]) or string.match(orgName, WOLF_HERO[2]) then
+        return "<font color='#800000'>Wolf</font>"
+        elseif string.match(orgName, ANGEL_HERO[1]) or string.match(orgName, ANGEL_HERO[2]) then 
+        return "<font color='#0099FF'>Angel</font>"
+        else
+        return "?"
+    end
+end
+
+function SellItem(args)
+    local item = EntIndexToHScript(args.itemIndex)
+    if item then
+        if not item:IsSellable() then
             SendErrorMessage(issuerID, "#error_item_not_sellable")
-            end
-            local gold_cost = item:GetSpecialValueFor("gold_cost")
-            local lumber_cost = item:GetSpecialValueFor("lumber_cost")
-            local hero = item:GetCaster()
-            UTIL_Remove(item)
-            PlayerResource:ModifyGold(hero, gold_cost, true)
-            PlayerResource:ModifyLumber(hero, lumber_cost, true)
-            local player = hero:GetPlayerOwner()
-            EmitSoundOnClient("DOTA_Item.Hand_Of_Midas", player)
-            end
-            
-            end
-            
-            function UpdateSpells(unit)
-            local playerID = unit:GetPlayerOwnerID()
-            local hero = unit
-            for a = 0, unit:GetAbilityCount() - 1 do
-            local tempAbility = unit:GetAbilityByIndex(a)
-            if tempAbility then
+        end
+        local gold_cost = item:GetSpecialValueFor("gold_cost")
+        local lumber_cost = item:GetSpecialValueFor("lumber_cost")
+        local hero = item:GetCaster()
+        UTIL_Remove(item)
+        PlayerResource:ModifyGold(hero, gold_cost, true)
+        PlayerResource:ModifyLumber(hero, lumber_cost, true)
+        local player = hero:GetPlayerOwner()
+        EmitSoundOnClient("DOTA_Item.Hand_Of_Midas", player)
+    end
+    
+end
+
+function UpdateSpells(unit)
+    local playerID = unit:GetPlayerOwnerID()
+    local hero = unit
+    for a = 0, unit:GetAbilityCount() - 1 do
+        local tempAbility = unit:GetAbilityByIndex(a)
+        if tempAbility then
             local abilityKV = GetAbilityKV(tempAbility:GetAbilityName());
             local bIsBuilding = abilityKV and abilityKV.Building or 0
             if bIsBuilding == 1 then
-            local buildingName = abilityKV.UnitName
-            DisableAbilityIfMissingRequirements(playerID, hero, tempAbility,
-            buildingName)
+                local buildingName = abilityKV.UnitName
+                DisableAbilityIfMissingRequirements(playerID, hero, tempAbility,
+                buildingName)
             end
-            end
-            end
-            end
-            
-            function UpdateUpgrades(building)
-            if not building or building:IsNull() then return end
-            
-            local playerID = building:GetPlayerOwnerID()
-            local hero = PlayerResource:GetSelectedHeroEntity(playerID)
-            for a = 0, building:GetAbilityCount() - 1 do
-            local ability = building:GetAbilityByIndex(a)
-            if ability and ability.upgradedUnitName then
+        end
+    end
+end
+
+function UpdateUpgrades(building)
+    if not building or building:IsNull() then return end
+    
+    local playerID = building:GetPlayerOwnerID()
+    local hero = PlayerResource:GetSelectedHeroEntity(playerID)
+    for a = 0, building:GetAbilityCount() - 1 do
+        local ability = building:GetAbilityByIndex(a)
+        if ability and ability.upgradedUnitName then
             DisableAbilityIfMissingRequirements(playerID, hero, ability,
             ability.upgradedUnitName)
-            end
-            end
-            end
-            
-            function AddUpgradeAbilities(building)
-            if not building or building:IsNull() then return end
-            
-            local upgrades = GetUnitKV(building:GetUnitName()).Upgrades
-            if upgrades and upgrades.Count then
-            local playerID = building:GetPlayerOwnerID()
-            local hero = PlayerResource:GetSelectedHeroEntity(playerID)
-            local abilities = {}
-            for a = 0, building:GetAbilityCount() - 1 do
+        end
+    end
+end
+
+function AddUpgradeAbilities(building)
+    if not building or building:IsNull() then return end
+    
+    local upgrades = GetUnitKV(building:GetUnitName()).Upgrades
+    if upgrades and upgrades.Count then
+        local playerID = building:GetPlayerOwnerID()
+        local hero = PlayerResource:GetSelectedHeroEntity(playerID)
+        local abilities = {}
+        for a = 0, building:GetAbilityCount() - 1 do
             local tempAbility = building:GetAbilityByIndex(a)
             if tempAbility then
-            table.insert(abilities, {tempAbility:GetAbilityName(), tempAbility:GetLevel()})
-            building:RemoveAbility(tempAbility:GetAbilityName())
+                table.insert(abilities, {tempAbility:GetAbilityName(), tempAbility:GetLevel()})
+                building:RemoveAbility(tempAbility:GetAbilityName())
             end
-            end
-            
-            local count = tonumber(upgrades.Count)
-            for i = 1, count, 1 do
+        end
+        
+        local count = tonumber(upgrades.Count)
+        for i = 1, count, 1 do
             local upgrade = upgrades[tostring(i)]
             local upgradedUnitName = upgrade.unit_name
             
@@ -761,68 +761,67 @@ function trollnelves2:PreStart()
             upgradeAbility.upgradedUnitName = upgradedUnitName
             
             DisableAbilityIfMissingRequirements(playerID, hero, upgradeAbility, upgradedUnitName)
-            end
-            for _, ability in ipairs(abilities) do
+        end
+        for _, ability in ipairs(abilities) do
             local abilityName, abilityLevel = unpack(ability)
             if not string.match(abilityName, "upgrade_to") then
-            local abilityHandle = building:AddAbility(abilityName)
-            abilityHandle:SetLevel(abilityLevel)
+                local abilityHandle = building:AddAbility(abilityName)
+                abilityHandle:SetLevel(abilityLevel)
             end
-            end
-            end
-            end
-            
-            function DisableAbilityIfMissingRequirements(playerID, hero, abilityHandle, unitName)
-            local missingRequirements = {}
-            local disableAbility = false
-            local requirements = GameRules.buildingRequirements[unitName]
-            if string.match(unitName,"troll_hut") then
-            hero = GameRules.trollHero
-            end
-            if requirements then
-            for _, requiredUnitName in ipairs(requirements) do
+        end
+    end
+end
+
+function DisableAbilityIfMissingRequirements(playerID, hero, abilityHandle, unitName)
+    local missingRequirements = {}
+    local disableAbility = false
+    local requirements = GameRules.buildingRequirements[unitName]
+    if string.match(unitName,"troll_hut") then
+        hero = GameRules.trollHero
+    end
+    if requirements then
+        for _, requiredUnitName in ipairs(requirements) do
             local requiredBuildingCurrentCount = hero.buildings[requiredUnitName].completedConstructionCount
             if requiredBuildingCurrentCount < 1 then
-            table.insert(missingRequirements, requiredUnitName)
-            disableAbility = true
+                table.insert(missingRequirements, requiredUnitName)
+                disableAbility = true
             end
-            end
-            end
-            CustomNetTables:SetTableValue("buildings", playerID .. unitName,
-            missingRequirements)
-            
-            local limit = GetUnitKV(unitName, "Limit")
-            if limit ~= nil then
-            local currentCount = hero.buildings[unitName].startedConstructionCount
-            if currentCount >= limit then disableAbility = true end
-            end
-            
-            
-            
-            if disableAbility and not GameRules.test2 then
-            abilityHandle:SetLevel(0)
-            hero.disabledBuildings[unitName] = true
-            else
-            abilityHandle:SetLevel(1)
-            hero.disabledBuildings[unitName] = false
-            end
-            end
-            
-            function GetClass(unitName)
-            if string.match(unitName, "rock") or string.match(unitName, "wall") then
-            return "wall"
-            elseif string.match(unitName, "tower") then
-            return "tower"
-            elseif string.match(unitName, "tent") or string.match(unitName, "barrack") then
-            return "tent"
-            elseif string.match(unitName, "trader") then
-            return "trader"
-            elseif string.match(unitName, "workers_guild") then
-            return "workers_guild"
-            elseif string.match(unitName, "mother_of_nature") then
-            return "mother_of_nature"
-            elseif string.match(unitName, "research_lab") then
-            return "research_lab"
-            end
-            end
-                        
+        end
+    end
+    CustomNetTables:SetTableValue("buildings", playerID .. unitName,
+    missingRequirements)
+    
+    local limit = GetUnitKV(unitName, "Limit")
+    if limit ~= nil then
+        local currentCount = hero.buildings[unitName].startedConstructionCount
+        if currentCount >= limit then disableAbility = true end
+    end
+    
+    
+    
+    if disableAbility and not GameRules.test2 then
+        abilityHandle:SetLevel(0)
+        hero.disabledBuildings[unitName] = true
+        else
+        abilityHandle:SetLevel(1)
+        hero.disabledBuildings[unitName] = false
+    end
+end
+
+function GetClass(unitName)
+    if string.match(unitName, "rock") or string.match(unitName, "wall") then
+        return "wall"
+        elseif string.match(unitName, "tower") then
+        return "tower"
+        elseif string.match(unitName, "tent") or string.match(unitName, "barrack") then
+        return "tent"
+        elseif string.match(unitName, "trader") then
+        return "trader"
+        elseif string.match(unitName, "workers_guild") then
+        return "workers_guild"
+        elseif string.match(unitName, "mother_of_nature") then
+        return "mother_of_nature"
+        elseif string.match(unitName, "research_lab") then
+        return "research_lab"
+    end
+end
