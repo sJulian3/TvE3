@@ -3322,21 +3322,29 @@ function BuildingHelper:IsInsideEntityBounds(entity)
     local bounds = entity:GetBounds()
     local min = bounds.Mins
     local max = bounds.Maxs
-    local minX = GridNav:WorldToGridPosX(math.ceil(min.x + origin.x))
-    local minY = GridNav:WorldToGridPosX(math.ceil(min.y + origin.y))
-    local maxX = GridNav:WorldToGridPosX(math.ceil(max.x + origin.x))
-    local maxY = GridNav:WorldToGridPosX(math.ceil(max.y + origin.y))
-    
-    --BuildingHelper:print("minY " .. minY .. " maxY " .. maxY)
-    --BuildingHelper:print("minX " .. minX .. " maxX " .. maxX)
+    local minX = min.x + origin.x
+    local minY = min.y + origin.y
+     minX = GridNav:WorldToGridPosX(minX)
+     minY = GridNav:WorldToGridPosX(minY)
 
-    --BuildingHelper:print("min.y " .. min.y .. " max.y " .. max.y)
-    --BuildingHelper:print("min.x " .. min.x .. " max.x " .. max.x)
+    local maxX = GridNav:WorldToGridPosX(math.floor(max.x)) + GridNav:WorldToGridPosX(math.floor(origin.x))
+    local maxY = GridNav:WorldToGridPosY(math.floor(max.y)) + GridNav:WorldToGridPosY(math.floor(origin.y))
+    
+    BuildingHelper:print("minY " .. minY .. " maxY " .. maxY)
+    BuildingHelper:print("minX " .. minX .. " maxX " .. maxX)
+
+    BuildingHelper:print("min.y " .. min.y .. " max.y " .. max.y)
+    BuildingHelper:print("min.x " .. min.x .. " max.x " .. max.x)
+    
+    
     for y = minY, maxY do
         for x = minX, maxX do
-            --BuildingHelper:print("BuildingHelper.GridTypes[BLOCKED]")
-           -- BuildingHelper:print("y " .. y .. " x " .. x)
-           -- BuildingHelper.Grid[y][x] = BuildingHelper.GridTypes["BLOCKED"]
+            local gridX = GridNav:GridPosToWorldCenterX(x)
+            local gridY = GridNav:GridPosToWorldCenterY(y)
+            BuildingHelper:print("BuildingHelper.GridTypes[BLOCKED]")
+           BuildingHelper:print("gridY " .. gridY .. " gridX " .. gridX)
+           BuildingHelper:print("y  " .. y .. " x " .. x)
+            -- BuildingHelper.Grid[y][x] = BuildingHelper.GridTypes["BLOCKED"]
             BuildingHelper.Terrain[y][x] = BuildingHelper.GridTypes["BLOCKED"]
            -- BuildingHelper:print("BuildingHelper.Terrain[y][x] " .. BuildingHelper.Terrain[y][x])
         end
@@ -3385,9 +3393,13 @@ end
 function IsBuilder(unit)
 local table = CustomNetTables:GetTableValue("builders", tostring(unit:GetEntityIndex()))
 if unit ~= nil then
-return unit:GetUnitLabel() == "builder" or (table and (table["IsBuilder"] == 1)) or unit:HasAbility("repair") or false
+    if unit:GetUnitLabel() ~= nil then 
+        return unit:GetUnitLabel() == "builder" or (table and (table["IsBuilder"] == 1)) or unit:HasAbility("repair") or false
+    else
+        return (table and (table["IsBuilder"] == 1)) or unit:HasAbility("repair") or false
+    end
 else
-return false
+    return false
 end
 end
 

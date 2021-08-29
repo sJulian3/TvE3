@@ -61,22 +61,10 @@ function trollnelves2:OnPlayerReconnect(event)
         return
     end
     local notSelectedHero = GameRules.disconnectedHeroSelects[playerID]
-    if notSelectedHero then
-        PlayerResource:ReplaceHeroWith(playerID, notSelectedHero, 0, 0)
-        hero = PlayerResource:GetSelectedHeroEntity(playerID)
-        local info = {}
-    	info.PlayerID = playerID
-   		info.hero = hero
-		Pets.DeletePet(info)
-		UTIL_Remove(hero)
-        if notSelectedHero == 'npc_dota_hero_treant' or notSelectedHero == 'npc_dota_hero_crystal_maiden' or notSelectedHero == 'npc_dota_hero_dark_willow'  then
-            PlayerResource:SetCustomTeamAssignment(playerID, DOTA_TEAM_GOODGUYS) -- A workaround for wolves sometimes getting stuck on elves team, I don't know why or how it happens.
-        else
-            PlayerResource:SetCustomTeamAssignment(playerID, DOTA_TEAM_BADGUYS)
-        end
-       
-    end
     local hero = PlayerResource:GetSelectedHeroEntity(playerID)
+    if notSelectedHero then
+        hero = PlayerResource:ReplaceHeroWith(playerID, notSelectedHero, 0, 0)   
+    end
     if hero:IsAngel() then hero:RemoveModifierByName("modifier_disconnected") end
     if hero:IsWolf() then hero:RemoveModifierByName("modifier_disconnected") end
     if hero then

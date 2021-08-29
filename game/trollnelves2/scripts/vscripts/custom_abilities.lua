@@ -3,6 +3,9 @@ require('libraries/entity')
 require('trollnelves2')
 require('wearables')
 require('error_debug')
+LinkLuaModifier("modifier_all_vision",
+    "libraries/modifiers/modifier_all_vision.lua",
+LUA_MODIFIER_MOTION_NONE)
 --Ability for tents to give gold
 function GainGoldCreate(event)
 	if IsServer() then
@@ -291,6 +294,9 @@ function RevealArea( event )
 				if unit ~= nil then
 					if unit:HasModifier("modifier_invisible") then
 						unit:RemoveModifierByName("modifier_invisible")
+					end
+					if not unit:HasModifier("modifier_all_vision") then
+						unit:AddNewModifier(unit, unit, "modifier_all_vision", {duration=5})
 					end
 				end
 			end
