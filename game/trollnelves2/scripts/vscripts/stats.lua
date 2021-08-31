@@ -20,7 +20,7 @@ function Stats.SubmitMatchData(winner,callback)
 	local debuffPoint = 0
 	local sign = 1 
 	if GameRules.startTime == nil then
-		GameRules.startTime = 0
+		GameRules.startTime = 1
 	end
 	for pID=0,DOTA_MAX_TEAM_PLAYERS do
 		if PlayerResource:IsValidPlayerID(pID) and PlayerResource:GetTeam(pID) ~= 5 then

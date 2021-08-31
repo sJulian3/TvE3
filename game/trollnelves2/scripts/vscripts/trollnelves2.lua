@@ -65,8 +65,8 @@ function trollnelves2:GameSetup()
     if IsServer() then
         for pID = 0, DOTA_MAX_TEAM_PLAYERS do
             if PlayerResource:IsValidPlayerID(pID) then
-                --PlayerResource:SetCustomTeamAssignment(pID, DOTA_TEAM_GOODGUYS)
-               -- PlayerResource:SetSelectedHero(pID, ELF_HERO)
+                PlayerResource:SetCustomTeamAssignment(pID, DOTA_TEAM_GOODGUYS)
+                PlayerResource:SetSelectedHero(pID, ELF_HERO)
                 GameRules.Score[pID] = 0
                 GameRules.PlayersFPS[pID] = false
                 local steam = tostring(PlayerResource:GetSteamID(pID))
@@ -657,6 +657,9 @@ end
 function SetResourceValues()
     for pID = 0, DOTA_MAX_PLAYERS do
         if PlayerResource:IsValidPlayer(pID) then
+            if GameRules.startTime == nil then
+                GameRules.startTime = 1
+            end
             CustomNetTables:SetTableValue("resources",
                 tostring(pID) .. "_resource_stats", {
                     gold = PlayerResource:GetGold(pID),
