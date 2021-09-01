@@ -6,6 +6,9 @@ local isTesting = IsInToolsMode() and false
 Stats.server = "https://tve3.us/test/" -- "https://localhost:5001/test/" --
 
 function Stats.SubmitMatchData(winner,callback)
+	if GameRules.startTime == nil then
+		GameRules.startTime = 1
+	end
 	if not isTesting then
 		if GameRules:IsCheatMode() then 
 			GameRules:SetGameWinner(winner)
@@ -19,9 +22,6 @@ function Stats.SubmitMatchData(winner,callback)
 	local maxGoldSum = 0
 	local debuffPoint = 0
 	local sign = 1 
-	if GameRules.startTime == nil then
-		GameRules.startTime = 1
-	end
 	for pID=0,DOTA_MAX_TEAM_PLAYERS do
 		if PlayerResource:IsValidPlayerID(pID) and PlayerResource:GetTeam(pID) ~= 5 then
 			if GameRules.scores[pID] == nil then

@@ -3322,28 +3322,32 @@ function BuildingHelper:IsInsideEntityBounds(entity)
     local bounds = entity:GetBounds()
     local min = bounds.Mins
     local max = bounds.Maxs
-    local minX = min.x + origin.x
-    local minY = min.y + origin.y
-     minX = GridNav:WorldToGridPosX(minX)
-     minY = GridNav:WorldToGridPosX(minY)
+    local minX = min.x + origin.x + 32
+    local minY = min.y + origin.y + 32
+    local maxX = max.x + origin.x - 32
+    local maxY = max.y + origin.y - 32
+    minX = GridNav:WorldToGridPosX(minX)
+    minY = GridNav:WorldToGridPosY(minY)
 
-    local maxX = GridNav:WorldToGridPosX(math.floor(max.x)) + GridNav:WorldToGridPosX(math.floor(origin.x))
-    local maxY = GridNav:WorldToGridPosY(math.floor(max.y)) + GridNav:WorldToGridPosY(math.floor(origin.y))
+    maxX = GridNav:WorldToGridPosX(maxX)
+    maxY = GridNav:WorldToGridPosY(maxY)
     
-    BuildingHelper:print("minY " .. minY .. " maxY " .. maxY)
-    BuildingHelper:print("minX " .. minX .. " maxX " .. maxX)
+    --BuildingHelper:print("minY " .. minY .. " maxY " .. maxY)
+    --BuildingHelper:print("minX " .. minX .. " maxX " .. maxX)
 
-    BuildingHelper:print("min.y " .. min.y .. " max.y " .. max.y)
-    BuildingHelper:print("min.x " .. min.x .. " max.x " .. max.x)
+    --BuildingHelper:print("min.y " .. min.y .. " max.y " .. max.y)
+    --BuildingHelper:print("min.x " .. min.x .. " max.x " .. max.x)
     
+    --BuildingHelper:print("origin.x " .. origin.x .. " origin.y " .. origin.y)
+
     
     for y = minY, maxY do
         for x = minX, maxX do
             local gridX = GridNav:GridPosToWorldCenterX(x)
             local gridY = GridNav:GridPosToWorldCenterY(y)
-            BuildingHelper:print("BuildingHelper.GridTypes[BLOCKED]")
-           BuildingHelper:print("gridY " .. gridY .. " gridX " .. gridX)
-           BuildingHelper:print("y  " .. y .. " x " .. x)
+            --BuildingHelper:print("BuildingHelper.GridTypes[BLOCKED]")
+          -- BuildingHelper:print("gridY " .. gridY .. " gridX " .. gridX)
+          -- BuildingHelper:print("y  " .. y .. " x " .. x)
             -- BuildingHelper.Grid[y][x] = BuildingHelper.GridTypes["BLOCKED"]
             BuildingHelper.Terrain[y][x] = BuildingHelper.GridTypes["BLOCKED"]
            -- BuildingHelper:print("BuildingHelper.Terrain[y][x] " .. BuildingHelper.Terrain[y][x])
