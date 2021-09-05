@@ -3322,10 +3322,10 @@ function BuildingHelper:IsInsideEntityBounds(entity)
     local bounds = entity:GetBounds()
     local min = bounds.Mins
     local max = bounds.Maxs
-    local minX = min.x + origin.x + 32
-    local minY = min.y + origin.y + 32
-    local maxX = max.x + origin.x - 32
-    local maxY = max.y + origin.y - 32
+    local minX = min.x + origin.x + 8
+    local minY = min.y + origin.y + 8
+    local maxX = max.x + origin.x - 8
+    local maxY = max.y + origin.y - 8
     minX = GridNav:WorldToGridPosX(minX)
     minY = GridNav:WorldToGridPosY(minY)
 

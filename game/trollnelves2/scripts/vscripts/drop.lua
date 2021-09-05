@@ -6,6 +6,7 @@ require('settings')
 item_drop = {
 	--{items = {"item_branches"}, chance = 5, duration = 5, limit = 3, units = {} },
 	{items = {"item_vip"}, limit = 1, chance = 1, units = {"npc_dota_hero_crystal_maiden","npc_dota_hero_lycan","npc_dota_hero_treant"} },
+	{items = {SEASON_ITEM}, limit = 15, chance = 500, units = {"npc_dota_hero_crystal_maiden","npc_dota_hero_lycan","npc_dota_hero_treant"} },
 	
 	{items = {"item_vip"}, limit = 1, chance = 500, units = {"npc_dota_hero_doom_bringer"} },
 	{items = {"item_vip"}, limit = 1, chance = 450, units = {"npc_dota_hero_doom_bringer"} },
@@ -79,27 +80,29 @@ function drop:RollItemDrop(unit)
 					item_name = items[RandomInt(1, #items)]
 				end
 				
-				local spawnPoint = unit:GetAbsOrigin()	
-				local newItem = CreateItem( item_name, nil, nil )
-				local drop = CreateItemOnPositionForLaunch( spawnPoint, newItem )
-				local dropRadius = RandomFloat( 50, 300 )
-				
-				newItem:LaunchLootInitialHeight( false, 0, 150, 0.5, spawnPoint + RandomVector( dropRadius ) )
+				if SEASON_ITEM == item_name then
+					local randTime = RandomInt( 30, 240 )
+					Timers:CreateTimer(randTime, function()
+						if string.match(GetMapName(),SEASON_MAP)  then
+							RandomDropLoot()
+							--elseif string.match(GetMapName(),"halloween") then 
+							--	RandomDropLoot()
+							--	RandomDropLoot()
+						end
+					end);
+				else
+					local spawnPoint = unit:GetAbsOrigin()	
+					local newItem = CreateItem( item_name, nil, nil )
+					local drop = CreateItemOnPositionForLaunch( spawnPoint, newItem )
+					local dropRadius = RandomFloat( 50, 300 )
+					
+					newItem:LaunchLootInitialHeight( false, 0, 150, 0.5, spawnPoint + RandomVector( dropRadius ) )
+				end
 				if loot_duration then
 					newItem:SetContextThink( "KillLoot", function() return KillLoot( newItem, drop ) end, loot_duration )
 				end
 			end
 		end	
-		
-		local randTime = RandomInt( 30, 240 )
-		Timers:CreateTimer(randTime, function()
-			if string.match(GetMapName(),SEASON_MAP)  then
-				RandomDropLoot()
-				--elseif string.match(GetMapName(),"halloween") then 
-				--	RandomDropLoot()
-				--	RandomDropLoot()
-			end
-		end);
 		
 	end
 end

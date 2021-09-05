@@ -42,8 +42,8 @@ TIMER_SAVER_HERO = 60
 
 EVENT_START = false
 
-SEASON_MAP = "autumn" -- name map
-SEASON_ITEM = "item_summer" -- item_winter_1; item_spring; item_autumn; item_summer;
+SEASON_MAP = "china" -- name map
+SEASON_ITEM = "item_autumn" -- item_winter_1; item_spring; item_autumn; item_summer;
 
 PLAYER_COLORS = {
     {0, 102, 255}, -- синий
