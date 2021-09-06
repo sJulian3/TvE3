@@ -10564,7 +10564,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"					"6369"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
@@ -10579,6 +10578,61 @@
 				"ad_linked_ability"			"doom_bringer_devour"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
 			}
 		}
+	}
+	//=================================================================================================================
+	// Doom Bringer: Devour
+	//=================================================================================================================
+	"doom_bringer_devour"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK | DOTA_ABILITY_BEHAVIOR_AUTOCAST"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_CUSTOM"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_NOT_CREEP_HERO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"AbilitySound"					"Hero_DoomBringer.Devour"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.3"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"300"
+		"AbilityCooldown"				"60"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_gold"			"0"
+				"LinkedSpecialBonus"	"special_bonus_unique_doom_3"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"regen"					"0"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"creep_level"			"99"
+			}
+			"04"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"hero_ability_steal_time"	"99999"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
 
 }

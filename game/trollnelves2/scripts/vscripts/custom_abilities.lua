@@ -295,9 +295,9 @@ function RevealArea( event )
 					if unit:HasModifier("modifier_invisible") then
 						unit:RemoveModifierByName("modifier_invisible")
 					end
-					if not unit:HasModifier("modifier_all_vision") then
-						unit:AddNewModifier(unit, unit, "modifier_all_vision", {duration=5})
-					end
+					--if not unit:HasModifier("modifier_all_vision") then
+					--	unit:AddNewModifier(unit, unit, "modifier_all_vision", {duration=5})
+					--end
 				end
 			end
 			timeElapsed = timeElapsed + 0.03
