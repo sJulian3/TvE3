@@ -165,6 +165,10 @@
 		"top2spring"																	  "TOP2 SPRING"
 		"top3spring"																	  "TOP3 SPRING"
 		
+		"top1summer"																	  "TOP1 SUMMER"
+		"top2summer"																	  "TOP2 SUMMER"
+		"top3summer"																	  "TOP3 SUMMER"
+		
 		
 		"tester1"																		  "TESTER"
 		"moder"																		  	  "MODERATOR"

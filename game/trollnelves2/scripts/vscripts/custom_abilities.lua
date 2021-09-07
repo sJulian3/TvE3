@@ -3,9 +3,10 @@ require('libraries/entity')
 require('trollnelves2')
 require('wearables')
 require('error_debug')
-LinkLuaModifier("modifier_all_vision",
-    "libraries/modifiers/modifier_all_vision.lua",
-LUA_MODIFIER_MOTION_NONE)
+--LinkLuaModifier("modifier_all_vision",
+--    "libraries/modifiers/modifier_all_vision.lua",
+--LUA_MODIFIER_MOTION_NONE)
+
 --Ability for tents to give gold
 function GainGoldCreate(event)
 	if IsServer() then
@@ -50,7 +51,6 @@ function ItemEffect(event)
 end
 
 function ItemEvent(event)
-	DebugPrintTable(event)
 	local data = {}
 	local caster = event.caster
 	local playerID = caster:GetPlayerOwnerID()
@@ -94,7 +94,6 @@ function ItemEventDesert(event)
 end
 
 function ItemEventWinter(event)
-	DebugPrintTable(event.ability)
 	local data = {}
 	local caster = event.caster
 	local playerID = caster:GetPlayerOwnerID()
@@ -110,7 +109,6 @@ function ItemEventWinter(event)
 end
 
 function ItemEventHelheim(event)
-	DebugPrintTable(event.ability)
 	local data = {}
 	local caster = event.caster
 	local playerID = caster:GetPlayerOwnerID()
@@ -126,7 +124,6 @@ function ItemEventHelheim(event)
 end
 
 function ItemEventBirthday(event)
-	DebugPrintTable(event.ability)
 	local data = {}
 	local caster = event.caster
 	local playerID = caster:GetPlayerOwnerID()
@@ -383,7 +380,6 @@ function ExchangeLumber(event)
 		
 		--Buy wood
 		if amount > 0 then
-			DebugPrint("Buying " .. amount .. " wood for " .. price .. " gold!")
 			if price > PlayerResource:GetGold(playerID) then
 				SendErrorMessage(playerID, "#error_not_enough_gold")
 				return false
@@ -399,7 +395,6 @@ function ExchangeLumber(event)
 			else
 			amount = -amount
 			price = price + increasePrice
-			DebugPrint("Selling " .. amount .. " wood for " .. price .. " gold!")
 			if amount > PlayerResource:GetLumber(playerID) then
 				SendErrorMessage(playerID, "#error_not_enough_lumber")
 				return false
@@ -646,7 +641,6 @@ end
 
 function CancelGather(event)
 	if IsServer() then
-		DebugPrint("Cancel gather---------------------------------------------------------------------")
 		local caster = event.caster
 		local ability = event.ability
 		
@@ -957,9 +951,11 @@ function StealGold(event)
 	local trollCount = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_BADGUYS)
 		for i = 1, trollCount do
 			local pID = PlayerResource:GetNthPlayerIDOnTeam(DOTA_TEAM_BADGUYS, i)
-			local playerHero = PlayerResource:GetSelectedHeroEntity(pID)
-			if playerHero then
-				sum = math.max( sum,  math.ceil(playerHero:GetNetworth()*0.003)+10 )
+			if PlayerResource:IsValidPlayerID(pID) then 
+				local playerHero = PlayerResource:GetSelectedHeroEntity(pID) or false
+				if playerHero:IsTroll() or playerHero:IsWolf() then
+					sum = math.max( sum,  math.ceil(playerHero:GetNetworth()*0.003)+10 )
+				end
 			end
 		end
 	local maxSum = 50000
@@ -996,6 +992,7 @@ function StealGold(event)
 		end
 	end
 	PlayerResource:ModifyGold(caster,sum)
+	PopupGoldGain(caster,sum)
 end
 
 function CheckStealGoldTarget(event)
@@ -1251,7 +1248,6 @@ function troll_buff(keys)
 end		
 
 function GiveResourcesRandom(event)
-    DebugPrint("Give skill, event source index: ")
     local targetID = event.target
     local casterID = event.casterID
     local gold = PlayerResource:GetGold(casterID)

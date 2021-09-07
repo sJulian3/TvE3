@@ -1515,12 +1515,10 @@ function BuildingHelper:StartBuilding(builder)
     end
     
     if IdBaseAreaBlock(location) ~= nil then 
-        DebugPrint("NOT! IsInsideBaseArea")
         return false
     end
     
     if not IsInsideBaseArea(playersHero, location, unitName, true) then 
-        DebugPrint("NOT! IsInsideBaseArea")
         SendErrorMessage(playerID, "#error_place_is_taken")
         return false
     end
@@ -2575,15 +2573,12 @@ function IsInsideBaseArea(unit, location, nameBuilding, build)
     local hero = unit:IsRealHero() and unit or unit:GetOwner()
     local playerID = hero:GetPlayerOwnerID()
     local baseIndex = IdBaseArea(location)
-    DebugPrint("IsInsideBaseArea ")
     
     if baseIndex ~= nil then
         if GameRules.PlayersBase[playerID] == nil or GameRules.PlayersBase[playerID] ~= baseIndex then
             for pID = 0, DOTA_MAX_TEAM_PLAYERS do
                 if PlayerResource:IsValidPlayerID(pID) then
                     if GameRules.PlayersBase[pID] == baseIndex then
-                        DebugPrint("GameRules.PlayersBase[pID] " .. GameRules.PlayersBase[pID])
-                        DebugPrint("baseIndex " .. baseIndex)
                         SendErrorMessage(playerID, "#error_place_is_taken")
                         return false
                     end
@@ -2591,9 +2586,6 @@ function IsInsideBaseArea(unit, location, nameBuilding, build)
             end
             if GameRules.PlayersBase[playerID] == nil and nameBuilding == "flag" and build then
                 GameRules.PlayersBase[playerID] = baseIndex
-                DebugPrint("Your Base " .. baseIndex)
-                DebugPrint("Your ID " .. playerID)
-                DebugPrintTable(GameRules.base)
                 return true
                 else 
                 return true
@@ -2612,7 +2604,6 @@ end
 function IdBaseArea(location)
     for index, shopTrigger in ipairs(GameRules.base) do
         if IsInsideBoxEntity(shopTrigger, location) then
-            DebugPrint("IdBaseArea index " .. index)
             return index
         end
     end
@@ -2622,7 +2613,6 @@ end
 function IdBaseAreaBlock(location)
     for index, shopTrigger in ipairs(GameRules.baseBlock) do
         if IsInsideBoxEntity(shopTrigger, location) then
-            DebugPrint("IdBaseArea index " .. index)
             return index
         end
     end
@@ -2665,12 +2655,10 @@ function BuildingHelper:AddToQueue(builder, location, bQueued)
     local hero = PlayerResource:GetSelectedHeroEntity(playerID)
     
     if IdBaseAreaBlock(location) ~= nil then 
-        DebugPrint("NOT! IsInsideBaseArea")
         return false
     end
     
     if not IsInsideBaseArea(hero, location, buildingName, false) then 
-        DebugPrint("NOT! IsInsideBaseArea")
         return false
     end
     

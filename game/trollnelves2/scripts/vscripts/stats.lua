@@ -88,6 +88,7 @@ function Stats.SubmitMatchData(winner,callback)
 				data.GetScoreBonusGoldGiven = tostring(PlayerResource:GetScoreBonusGoldGiven(pID))
 				data.GetScoreBonusLumberGained = tostring(PlayerResource:GetScoreBonusLumberGained(pID))
 				data.GetScoreBonusLumberGiven = tostring(PlayerResource:GetScoreBonusLumberGiven(pID))		
+				data.Score = 0
 				if hero then
 					data.Type = tostring(PlayerResource:GetType(pID) or "null")
 					if PlayerResource:GetConnectionState(pID) == 2 then

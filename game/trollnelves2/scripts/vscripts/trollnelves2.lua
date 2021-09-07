@@ -511,6 +511,9 @@ function trollnelves2:PreStart()
                 duration = 1
             })
             gameStartTimer = gameStartTimer - 1
+            if GameRules.trollHero ~= nil then
+                PlayerResource:SetGold(GameRules.trollHero , 0)
+            end
             return 1
             else
             if GameRules.trollHero or GameRules.test then
