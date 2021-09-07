@@ -953,8 +953,10 @@ function StealGold(event)
 			local pID = PlayerResource:GetNthPlayerIDOnTeam(DOTA_TEAM_BADGUYS, i)
 			if PlayerResource:IsValidPlayerID(pID) then 
 				local playerHero = PlayerResource:GetSelectedHeroEntity(pID) or false
-				if playerHero:IsTroll() or playerHero:IsWolf() then
-					sum = math.max( sum,  math.ceil(playerHero:GetNetworth()*0.003)+10 )
+				if playerHero then
+					if playerHero:IsTroll() or playerHero:IsWolf() then
+						sum = math.max( sum,  math.ceil(playerHero:GetNetworth()*0.003)+10 )
+					end
 				end
 			end
 		end

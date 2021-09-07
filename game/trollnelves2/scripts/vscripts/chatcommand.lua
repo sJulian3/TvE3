@@ -29,7 +29,7 @@ function chatcommand:OnPlayerChat(event)
 		elseif string.match(event.text,"%D+") == "!kick" and PlayerResource:GetSteamAccountID(event.playerid) == 201083179 then
 		local id_kick = tonumber(string.match(event.text,"%d+"))
 		local hero_kick = PlayerResource:GetSelectedHeroEntity(id_kick)
-		if hero:GetTeamNumber() == hero_kick:GetTeamNumber() then
+		--if hero:GetTeamNumber() == hero_kick:GetTeamNumber() then
 			hero_kick:ForceKill(true)
 			if hero_kick.units ~= nil then
 				for i=1,#hero_kick.units do
@@ -41,7 +41,7 @@ function chatcommand:OnPlayerChat(event)
 			end
 			UTIL_Remove(hero_kick)
 			SendToServerConsole("kick " .. PlayerResource:GetPlayerName(id_kick))
-		end
+		--end
 		elseif string.match(event.text,"%D+") == "!kill" and PlayerResource:GetSteamAccountID(event.playerid) == 201083179 then
 		local id_kick = tonumber(string.match(event.text,"%d+"))
 		local hero_kick = PlayerResource:GetSelectedHeroEntity(id_kick)

@@ -300,9 +300,7 @@ function CDOTA_BaseNPC:GetNetworth()
 	if self:HasItemInInventory("item_disable_repair_2") then
 		sum = sum + 12288000
 	end
-	if self:IsTroll() then
-		sum = sum + PlayerResource:GetGold(self:GetPlayerOwnerID()) + (PlayerResource:GetLumber(self:GetPlayerOwnerID()) * 64000)
-	elseif self:IsWolf() then
+	if self:IsTroll() or self:IsWolf() then
 		sum = sum + PlayerResource:GetGold(self:GetPlayerOwnerID()) + (PlayerResource:GetLumber(self:GetPlayerOwnerID()) * 64000)
 	else
 		sum = sum + PlayerResource:GetGold(self:GetPlayerOwnerID())
