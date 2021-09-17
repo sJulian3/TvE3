@@ -180,7 +180,91 @@
 		"event_line_boss"																	"Chest of the Damned"
 		
 		"npc_dota_creep_goodguys_melee_upgraded_mega"										"stresS_"
+		"npc_dota_visage_familiar3"										"Doom's Familiar"
+		"npc_dota_shadow_shaman_ward_3"										"Hell Golems"
+		"npc_dota_venomancer_plague_ward_4"										"Phantom"
+		"ski"										"medium tide"
+		"ski_2"										"small tide"
 		// ******************** ABILITY MODIFIERS ********************
+
+		"DOTA_Tooltip_ability_mars_bulwark"                                        "Bulwark"
+		"DOTA_Tooltip_ability_mars_bulwark_Description"                            "Ignores all physical damage"
+
+		"DOTA_Tooltip_ability_invoker_ghost_walk"                                        "Ghost walk"
+		"DOTA_Tooltip_ability_invoker_ghost_walk_Description"                            "Gives you invisible for 1000 seconds <br>costs: 50 mana <br>cooldown: 60 seconds "
+
+		"DOTA_Tooltip_ability_phantom_assassin_stifling_dagger"                                        "Stifling Dagger"
+		"DOTA_Tooltip_ability_phantom_assassin_stifling_dagger_Description"                            "Damages: 390570<br>costs: 30 mana<br>cooldown: 6 seconds<br>Physical Damage "
+
+		"DOTA_Tooltip_ability_nyx_assassin_spiked_carapace"                                        "Spiked Carapace"
+		"DOTA_Tooltip_ability_nyx_assassin_spiked_carapace_Description"                            "Ignores and returs all taken damage<br>costs: 42 mana<br>cooldown: 10 seconds<br>Stun duration: 2.4 seconds<br>Pure Damage"
+
+		"DOTA_Tooltip_ability_venomancer_plague_ward"                                        "Summon Phantom"
+		"DOTA_Tooltip_ability_venomancer_plague_ward_Description"                            "Damage:0 <br>costs: 72 mana<br>cooldown: 150 seconds<br>Living time: 180 seconds"
+
+		"DOTA_Tooltip_ability_phantom_assassin_blur"                                        "Blur"
+		"DOTA_Tooltip_ability_phantom_assassin_blur_Description"                            "Gives 100% evasion"
+
+		"DOTA_Tooltip_ability_monkey_king_mischief"                                        "Transform"
+		"DOTA_Tooltip_ability_monkey_king_mischief_Description"                            "Transforms to varied props<br>cooldown: 3 seconds"
+
+		"DOTA_Tooltip_ability_lone_druid_spirit_bear_return"                                        "teleport"
+		"DOTA_Tooltip_ability_lone_druid_spirit_bear_return_Description"                            "teleports back to owner<br>cooldown: 30 seconds<br>duration: 3 seconds"
+
+		"DOTA_Tooltip_ability_satyr_hellcaller_unholy_aura"                                        "Regen  Aura"
+		"DOTA_Tooltip_ability_satyr_hellcaller_unholy_aura_Description"                            "Regen: 800 hp/s<br>radius: 1200"
+
+		"DOTA_Tooltip_ability_centaur_khan_endurance_aura"                                        "Swiftness"
+		"DOTA_Tooltip_ability_centaur_khan_endurance_aura_Description"                            "Gives a lot of attack speed"
+
+		"DOTA_Tooltip_ability_tidehunter_kraken_shell"                                        "Kraken Shell"
+		"DOTA_Tooltip_ability_tidehunter_kraken_shell_Description"                            "Blocks 42000 damage <br>Damage cleanse 50000"
+
+		"DOTA_Tooltip_ability_centaur_double_edge"                                        "Double Edge"
+		"DOTA_Tooltip_ability_centaur_double_edge_Description"                            "Damage: 45000 <br>Strength Damage: 400<br>Range: 500<br>Radius: 250<br>cooldown: 4 seconds<br>Magical Damage"
+
+		"DOTA_Tooltip_ability_tidehunter_ravage"                                        "Ravage"
+		"DOTA_Tooltip_ability_tidehunter_ravage_Description"                            "Damage: 45000 <br>Radius: 1250<br>cooldown: 150 seconds<br>Stun duration: 3 seconds<br>Magical Damage"
+
+		"DOTA_Tooltip_ability_centaur_return"                                        "Return"
+		"DOTA_Tooltip_ability_centaur_return_Description"                            "Damage:60 <br>Strength return damage: 5<br>Physical Damage"
+
+		"DOTA_Tooltip_ability_skeleton_king_reincarnation"                                        "Reincarnation"
+		"DOTA_Tooltip_ability_skeleton_king_reincarnation_Description"                            "Reincarnation time: 30 seconds <br>Slow radius: 900<br>Slow: -75 AS<br>Slow: -75% MS<br>cooldown: 1000 seconds"
+
+		"DOTA_Tooltip_ability_phantasm_split_4"                                        "Tidehunter's Split"
+		"DOTA_Tooltip_ability_phantasm_split_4_Description"                            "Splits to another Tidehunters"
+
+		"DOTA_Tooltip_ability_phantasm_split_3"                                        "Split"
+		"DOTA_Tooltip_ability_phantasm_split_3_Description"                            "Splits to another Tidehunters"
+
+		"DOTA_Tooltip_ability_centaur_hoof_stomp"                                        "Stomp"
+		"DOTA_Tooltip_ability_centaur_hoof_stomp_Description"                            "Damage: 5000 <br>Radius: 500<br>cooldown: 30 seconds<br>Stun duration: 7 seconds<br>Magical Damage"
+
+		"DOTA_Tooltip_ability_ursa_overpower"                                        "Overpower"
+		"DOTA_Tooltip_ability_ursa_overpower_Description"                            "AS bonus: 1200<br>Attacks: 13<br>Duration: 20 seconds<br>cooldown: 15 seconds"
+
+		"DOTA_Tooltip_ability_doom_bringer_scorched_earth"                                        "Hell Fire"
+		"DOTA_Tooltip_ability_doom_bringer_scorched_earth_Description"                            "DPS:15000 <br>Radius: 850<br>Duration: 10 seconds<br>cooldown: 300 seconds<br>Magical Damage"
+
+		"DOTA_Tooltip_ability_shadow_shaman_mass_serpent_ward"                                        "Hell Golems"
+		"DOTA_Tooltip_ability_shadow_shaman_mass_serpent_ward_Description"                            "Damage:0 <br>Count: 4<br>cooldown: 110 seconds<br>Living time: 120 seconds"
+
+		"DOTA_Tooltip_ability_roshan_bash"                                        "Bash"
+		"DOTA_Tooltip_ability_roshan_bash_Description"                            "Damage:50 <br>Bash chance: 7%<br>Stun duration: 3.5 seconds<br>Magical Damage"
+
+		"DOTA_Tooltip_ability_shadow_shaman_mass_serpent_ward"                                        "Hell Golems"
+		"DOTA_Tooltip_ability_shadow_shaman_mass_serpent_ward_Description"                            "Damage: 0<br>Count: 4<br>cooldown: 110 seconds<br>Living time: 120 seconds"
+
+		"DOTA_Tooltip_ability_visage_summon_familiars"                                        "Familiars"
+		"DOTA_Tooltip_ability_visage_summon_familiars_Description"                            "Count: 2<br>cooldown: 110 seconds"
+
+		"DOTA_Tooltip_ability_batrider_flaming_lasso"                                        "Lasso"
+		"DOTA_Tooltip_ability_batrider_flaming_lasso"                            "Range: 175<br>Duration: 4 seconds<br>Cooldown: 65 seconds"
+
+		"DOTA_Tooltip_ability_ember_spirit_flame_guard"                                        "Flare"
+		"DOTA_Tooltip_ability_ember_spirit_flame_guard_Description"                            "DPS: 75<br>Radius: 800<br>Duration: 10 seconds<br>Cooldown: 45 seconds<br>Magical Damage"
+
 		"DOTA_Tooltip_Ability_attribute_antibonuses"											""
 		
 		"DOTA_Tooltip_modifier_gain_gold"                                                 "Gain Gold"

@@ -29,7 +29,9 @@ function trollnelves2:_Inittrollnelves2()
   GameRules:SetHideKillMessageHeaders(true)
   GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 17)
   GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 17)
-  GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 2)
+  GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 6)
+  GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 6)
+  GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 6)
   
   -- Setup game mode
   mode = GameRules:GetGameModeEntity()     

@@ -8,9 +8,9 @@ function FlagStart(eventSourceIndex, event)
 		local hero = PlayerResource:GetSelectedHeroEntity(event.target)
 		local casterHero = PlayerResource:GetSelectedHeroEntity(event.casterID)	
 		local playerName = PlayerResource:GetPlayerName(event.casterID)
-		if casterHero:IsElf() and hero:IsElf() and PlayerResource:GetConnectionState(event.target) == 2 and GameRules.PlayersBase[event.casterID] ~= nil and countFlag[event.casterID] == nil
-			and (GameRules:GetGameTime() - GameRules.startTime < 120 
-			or  (lastFlagTime[event.target] == nil or lastFlagTime[event.target] + 240 < GameRules:GetGameTime()) )
+		if casterHero:IsElf() and hero:IsElf() and PlayerResource:GetConnectionState(event.target) == 2 
+		    and GameRules.PlayersBase[event.casterID] ~= nil and countFlag[event.casterID] == nil
+			and (GameRules:GetGameTime() - GameRules.startTime < 120  or  (lastFlagTime[event.target] == nil or lastFlagTime[event.target] + 240 < GameRules:GetGameTime()) )
 			and (lastFlagTime[event.caster] == nil or lastFlagTime[event.caster] + 40 < GameRules:GetGameTime()) then	
 			CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(event.target), "show_flag_options", {["name"] = playerName, ["id"] = event.target,["casterID"] = event.casterID} )
 			DebugPrint("FlagStart SEND")

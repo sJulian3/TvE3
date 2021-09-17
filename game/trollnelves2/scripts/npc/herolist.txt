@@ -11,5 +11,8 @@
   "npc_dota_hero_night_stalker" "-1"
   "npc_dota_hero_treant" "-1"
   "npc_dota_hero_troll_warlord" "1"
-  "npc_dota_hero_doom_bringer"  "1"
+  "npc_dota_hero_doom_bringer"  "-1"
+  "npc_dota_hero_phantom_assassin" "-1"
+  "npc_dota_hero_tidehunter" "-1"
+  
 }

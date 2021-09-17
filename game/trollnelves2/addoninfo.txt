@@ -1,6 +1,6 @@
 "AddonInfo"
 {
-  "TeamCount" "3"
+  "TeamCount" "5"
   "maps"      "autumn autumn2x autumn4x desert desert2x desert4x china china2x china4x helheim helheim2x helheim4x winter winter2x winter4x spring spring2x spring4x"
   "IsPlayable"  "1"
   "autumn"

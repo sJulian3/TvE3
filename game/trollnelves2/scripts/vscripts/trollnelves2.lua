@@ -94,7 +94,6 @@ function SelectHeroes()
                 table.insert(wannabeTrollIDs, pID)
             end
             PlayerResource:SetCustomTeamAssignment(pID, DOTA_TEAM_GOODGUYS)
-            GameRules.PlayersCount = GameRules.PlayersCount + 1
         end
     end
     local trollPlayerID = -1
@@ -295,6 +294,7 @@ function InitializeBuilder(hero)
             abil:SetLevel(abil:GetMaxLevel())
         end
     end)   
+    hero:CalculateStatBonus(true)
 end
 
 function InitializeTroll(hero)
@@ -422,7 +422,7 @@ function InitializeTroll(hero)
         end
         return 1
     end)
-    
+    hero:CalculateStatBonus(true)
 end
 
 function InitializeAngel(hero)
@@ -431,6 +431,7 @@ function InitializeAngel(hero)
     --if not string.match(GetMapName(),"halloween") then 
     --    hero:RemoveAbility("silence_datadriven")
     --end
+    hero:CalculateStatBonus(true)
 end
 
 function trollnelves2:ControlUnitForTroll(hero)
@@ -496,6 +497,7 @@ function InitializeWolf(hero)
     if abil ~= nil then
         abil:RemoveAbility("troll_warlord_battle_trance_datadriven")
     end
+    hero:CalculateStatBonus(true)
 end
 
 function trollnelves2:PreStart()
@@ -579,7 +581,6 @@ function trollnelves2:PreStart()
     if IsServer() then
         for pID = 0, DOTA_MAX_TEAM_PLAYERS do
             if PlayerResource:IsValidPlayerID(pID) then
-                local hero = PlayerResource:GetSelectedHeroEntity(pID)
                 local steam = tostring(PlayerResource:GetSteamID(pID))
                 Stats.RequestVip(pID, steam, callback)
                 Stats.RequestBonus(pID, steam, callback)
@@ -596,8 +597,9 @@ function trollnelves2:PreStart()
         Timers:CreateTimer(15, function() Stats.RequestDataTop10("3", callback) end)
         Timers:CreateTimer(20, function() Stats.RequestDataTop10("4", callback) end)
         Donate:CreateList()
-    end
-    
+        GameRules.PlayersCount = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_GOODGUYS) + PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_BADGUYS)
+        GameRules:SendCustomMessage("<font color='#00FFFF '> Number of players: " .. GameRules.PlayersCount .. "</font>" ,  0, 0)
+    end 
 end
 
 function StartCreatingMinimapBuildings()

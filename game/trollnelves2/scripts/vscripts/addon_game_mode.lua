@@ -43,6 +43,8 @@ function Precache( context )
 	PrecacheUnitByNameSync(ANGEL_HERO[2], context)
 	PrecacheUnitByNameSync(BEAR_HERO, context)
 	PrecacheUnitByNameSync("npc_dota_hero_doom_bringer", context)
+	PrecacheUnitByNameSync("npc_dota_hero_phantom_assassin", context)
+	PrecacheUnitByNameSync("npc_dota_hero_tidehunter", context)
 	PrecacheUnitByNameSync("tent", context)
 	PrecacheUnitByNameSync("tent_2", context)
 	PrecacheUnitByNameSync("tent_3", context)
@@ -394,6 +396,9 @@ function Precache( context )
 	
 	--PrecacheResource("model", "models/items/wraith_king/wk_ti8_creep/wk_ti8_creep.vmdl", context)
 	-- End Halloween
+	
+	PrecacheResource("soundfile","soundevents/game_sounds_heroes/game_sounds_ember_spirit.vsndevts",context)
+    PrecacheResource("soundfile","soundevents/game_sounds_heroes/game_sounds_abyssal_underlord.vsndevts",context)
 	
 	PrecacheLoad:PrecacheLoad (context)
 	
